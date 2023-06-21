@@ -1,4 +1,122 @@
-# Main entrypoint of the workflow. 
-# Please follow the best practices: 
-# https://snakemake.readthedocs.io/en/stable/snakefiles/best_practices.html,
-# in particular regarding the standardized folder structure mentioned there. 
+# ----------------------------------------------------------------------------------
+#          ---        
+#        / o o \    Snakemake workflow phylo-BEAST
+#        V\ Y /V    Snakemake workflow to run beast2 analysis with genetic sequences 
+#    (\   / - \     
+#     )) /    |     
+#     ((/__) ||     Code by Ceci VA 
+# -----------------------------------------------------------------------------------
+
+# from snakemake.io import load_configfile
+from snakemake.utils import update_config, validate, min_version
+
+# if os.path.exists("config/config.yaml"):
+
+#     configfile: "config/config.yaml"
+
+# elif os.path.exists("config.yaml"):
+
+#     configfile: "config.yaml"
+
+configfile: "config/config.yaml"
+min_version("7.11.0")
+
+localrules: all, clean
+
+
+import urllib, json
+import pandas as pd
+
+
+# Include workflow rules
+include: "rules/common.smk"
+
+
+DATASETS = list(config["dataset"].keys())
+# DATASET = list(config["dataset"].keys())
+# DATASET = ["dataset1", "dataset2"]
+
+# DEMES = _get_demes()
+# SUBSAMPLING = config["subsample"]["method"]
+# DATA_SEED = range(0, config["dataset"][DATASET]["replicates"])
+ANALYSIS = config["beast"]["run"]
+BEAST_SEED = range(1, (config["beast"].get("chains")) + 1)
+
+# all_files = expand(expand("results/{dataset}/data/sequences.{{dseed}}.fasta", dataset = DATASET), dseed = range(0, config["dataset"][dataset]["replicates"]))
+
+all_files = []
+for dataset in DATASETS:
+	if  config["dataset"][dataset].get("replicates") is not None:
+		all_files.append(expand("results/" + dataset + "/data/sequences.{dseed}.fasta", dseed = range(0, config["dataset"][dataset].get("replicates"))))
+	else:
+		all_files.append("results/" + dataset + "/data/sequences.fasta")
+
+# [expand("results/{dataset}/beast/{analysis}.{dseed}.comb.log", 
+# 	            dataset = DATASET, 
+# 	            analysis = ANALYSIS, 
+# 	            bseed = BEAST_SEED, 
+# 	            dseed = DATA_SEED),
+# 			expand("results/{dataset}/trees/timetree.{dseed}.nexus", 
+# 	            dataset = DATASET, 
+# 	            dseed = DATA_SEED)]
+
+
+
+# If structure:
+
+
+# If LAPIS import of metadata
+if config["output"]["lapis_import"]:
+	include: "rules/lapis_import.smk"
+else:
+	include: "rules/data_import.smk"
+
+
+include: "rules/data_combine.smk"
+include: "rules/data_qc.smk"
+include: "rules/data_subsample.smk"
+include: "rules/sequences_import.smk"
+
+# ids_file = "results/{dataset}/data/ids.tsv"
+
+# if config["output"]["seq_qc"]:
+# 	include: "rules/data_qc.smk"
+# 	ids_file = "results/{dataset}/data/ids_qc.tsv"
+
+# # If subsample
+# if config["output"]["subsample"]:
+# 	include: "rules/data_subsample.smk"
+# 	data_dir = data_dir + "{subsampling}/{dseed}."
+# else:
+# 	data_dir = "results/{dataset}/data/"
+
+# # If LAPIS import of sequences
+# if config["output"]["lapis_import"]:
+# 	include: "rules/lapis_sequences_import.smk"
+# else:
+# 	include: "rules/sequences_import.smk"
+# 	if config["output"]["alignment"]:
+# 		include: "rules/alignment.smk"
+
+# # If masking of sequences
+# if config["output"]["mask"]:
+# 	include: "rules/mask_aligment.smk"
+
+# # If ml tree reconstruction
+# if config["output"]["phylogenetics"]:
+# 	include: "rules/phylogenetics.smk"
+
+# # If BEAST2 analysis
+# if config["output"]["phylodynamics"]:
+# 	include: "rules/phylodynamics.smk"
+
+rule all:
+	input:
+		all_files
+
+rule clean:
+    shell:
+        '''
+        rm -rf results logs
+        '''
+

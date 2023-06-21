@@ -1,5 +1,8 @@
+.gitignore
 results/**
 resources/**
 logs/**
 .snakemake
 .snakemake/**
+.DS_Store
+*.pdf
