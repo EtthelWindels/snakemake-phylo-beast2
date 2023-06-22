@@ -7,11 +7,11 @@ rule align:
         Align with mafft
         """
     input:
-        sequences = rules.filter.output.sequences
+        sequences = rules.select_sequences.output.sequences
     output:
-        aln = "results/{dataset}/data/{subsampling}/alignment.{dseed}.fasta"
+        alignment = "results/{dataset}/data/aligned{sufix,.*}.fasta"
     log:
-        "logs/align_{dataset}_{subsampling}.{dseed}.txt"
+        "logs/align_{dataset}_{sufix,.*}.txt"
     conda:
         "envs/mafft.yaml"
     shell:

@@ -1,4 +1,4 @@
-rule load_sequences:
+rule select_sequences:
     message:
         """
         Load the selected sequences for each dataset.
@@ -21,4 +21,3 @@ rule load_sequences:
             --output_file {output.sequences} \
             --drop_incomplete True 2>&1 | tee {log}
         """
-

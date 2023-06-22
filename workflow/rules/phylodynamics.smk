@@ -14,7 +14,7 @@ rule beast:
     Running BEAST2 analysis {wildcards.analysis} BDMM-Prime, MCMC chain {wildcards.bseed}, subsample {wildcards.subsampling} {wildcards.dseed}.
     """
     input:
-        aln = rules.mask_sequences.output.aln,
+        alignment = _get_alignment,
         ids = rules.combine_subsamples.output.combined,
         xml = lambda wildcards: config["beast"][wildcards.analysis]["xml"],
     output:

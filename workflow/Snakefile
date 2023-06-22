@@ -7,116 +7,84 @@
 #     ((/__) ||     Code by Ceci VA 
 # -----------------------------------------------------------------------------------
 
-# from snakemake.io import load_configfile
-from snakemake.utils import update_config, validate, min_version
 
-# if os.path.exists("config/config.yaml"):
+import urllib, json
+import pandas as pd
+from snakemake.utils import validate, min_version
 
-#     configfile: "config/config.yaml"
+min_version("7.11.0")
 
-# elif os.path.exists("config.yaml"):
-
-#     configfile: "config.yaml"
 
 configfile: "config/config.yaml"
-min_version("7.11.0")
 
 localrules: all, clean
 
 
-import urllib, json
-import pandas as pd
-
-
-# Include workflow rules
-include: "rules/common.smk"
-
 
 DATASETS = list(config["dataset"].keys())
-# DATASET = list(config["dataset"].keys())
-# DATASET = ["dataset1", "dataset2"]
+# ANALYSIS = config["beast"]["run"]
 
-# DEMES = _get_demes()
-# SUBSAMPLING = config["subsample"]["method"]
-# DATA_SEED = range(0, config["dataset"][DATASET]["replicates"])
-ANALYSIS = config["beast"]["run"]
-BEAST_SEED = range(1, (config["beast"].get("chains")) + 1)
-
-# all_files = expand(expand("results/{dataset}/data/sequences.{{dseed}}.fasta", dataset = DATASET), dseed = range(0, config["dataset"][dataset]["replicates"]))
+# BEAST_SEED = range(1, (config["beast"].get("chains")) + 1)
 
 all_files = []
 for dataset in DATASETS:
-	if  config["dataset"][dataset].get("replicates") is not None:
-		all_files.append(expand("results/" + dataset + "/data/sequences.{dseed}.fasta", dseed = range(0, config["dataset"][dataset].get("replicates"))))
-	else:
-		all_files.append("results/" + dataset + "/data/sequences.fasta")
+    if  config["dataset"][dataset].get("replicates") is not None:
+        all_files.append(expand("results/" + dataset + "/data/aligned.{dseed}.fasta", dseed = range(0, config["dataset"][dataset].get("replicates"))))
+    else:
 
-# [expand("results/{dataset}/beast/{analysis}.{dseed}.comb.log", 
-# 	            dataset = DATASET, 
-# 	            analysis = ANALYSIS, 
-# 	            bseed = BEAST_SEED, 
-# 	            dseed = DATA_SEED),
-# 			expand("results/{dataset}/trees/timetree.{dseed}.nexus", 
-# 	            dataset = DATASET, 
-# 	            dseed = DATA_SEED)]
+        all_files.append("results/" + dataset + "/data/aligned.fasta")
 
-
-
-# If structure:
-
-
-# If LAPIS import of metadata
-if config["output"]["lapis_import"]:
-	include: "rules/lapis_import.smk"
-else:
-	include: "rules/data_import.smk"
-
-
-include: "rules/data_combine.smk"
-include: "rules/data_qc.smk"
-include: "rules/data_subsample.smk"
-include: "rules/sequences_import.smk"
-
-# ids_file = "results/{dataset}/data/ids.tsv"
-
-# if config["output"]["seq_qc"]:
-# 	include: "rules/data_qc.smk"
-# 	ids_file = "results/{dataset}/data/ids_qc.tsv"
-
-# # If subsample
-# if config["output"]["subsample"]:
-# 	include: "rules/data_subsample.smk"
-# 	data_dir = data_dir + "{subsampling}/{dseed}."
-# else:
-# 	data_dir = "results/{dataset}/data/"
-
-# # If LAPIS import of sequences
-# if config["output"]["lapis_import"]:
-# 	include: "rules/lapis_sequences_import.smk"
-# else:
-# 	include: "rules/sequences_import.smk"
-# 	if config["output"]["alignment"]:
-# 		include: "rules/alignment.smk"
-
-# # If masking of sequences
-# if config["output"]["mask"]:
-# 	include: "rules/mask_aligment.smk"
-
-# # If ml tree reconstruction
-# if config["output"]["phylogenetics"]:
-# 	include: "rules/phylogenetics.smk"
-
-# # If BEAST2 analysis
-# if config["output"]["phylodynamics"]:
-# 	include: "rules/phylodynamics.smk"
 
 rule all:
-	input:
-		all_files
+    input:
+        all_files
 
 rule clean:
     shell:
         '''
         rm -rf results logs
         '''
+
+# Include workflow rules
+include: "rules/common.smk"
+
+if config["output"]["data_curation"] and not config["output"]["lapis_import"]:
+    include: "rules/sample_selection.smk"
+    include: "rules/sequences_qc.smk"
+    include: "rules/sequences_import.smk"
+    
+    if config["output"]["align"]:
+        include: "rules/alignment.smk"
+
+include: "rules/sample_combine.smk"
+include: "rules/subsampling.smk"
+
+if config["output"]["lapis_import"]:
+    # use rules from talking to lapis workflow
+    module lapis_import:
+        # snakefile: github("cecivale/talking-to-lapis", path="python-snakemake/workflow/Snakefile", tag = "v0.1") 
+        snakefile: "/Users/ceciliav/Tools/talking-to-LAPIS/python-snakemake/workflow/Snakefile"
+        config: config
+
+    use rule load_metadata from lapis_import as lapis_sample_selection 
+
+    use rule load_sequences from lapis_import as lapis_sequences_import with:
+        input:
+            ids = _get_sequence_ids
+        output:
+            alignment = "results/{dataset}/data/aligned{sufix,.*}.fasta"
+        log:
+            "logs/lapis_import_seqs_{dataset}_{sufix,.*}.txt" 
+
+
+if config["output"]["mask"]:
+        include: "rules/mask.smk"
+
+# If ml tree reconstruction
+#if config["output"]["phylogenetics"]:
+    #include: "rules/phylogenetics.smk"
+
+# If BEAST2 analysis
+#if config["output"]["phylodynamics"]:
+    #include: "rules/phylodynamics.smk"
 

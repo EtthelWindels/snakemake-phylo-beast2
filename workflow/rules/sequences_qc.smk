@@ -1,13 +1,3 @@
-# ----------------------------------------------------------------------------------
-#          ---        
-#        / o o \    Snakemake workflow phylo-BEAST
-#        V\ Y /V    Snakemake workflow to run beast2 analysis with genetic sequences 
-#    (\   / - \     
-#     )) /    |     
-#     ((/__) ||     Code by Ceci VA 
-# -----------------------------------------------------------------------------------
-
-
 
 rule filter:
     message:
@@ -15,7 +5,7 @@ rule filter:
         Run qc analysis on sequences and filter
         """
     input:
-        ids = rules.select_metadata.output.ids,
+        ids = rules.select_samples.output.ids,
         sequences = config["input"]["sequences"]
     output:
         qc_report = "results/{dataset}/data/{prefix,.*}qc.txt",
@@ -28,3 +18,5 @@ rule filter:
         """
         python3 #TODO, also maybe the option to run nextclade or other tool
         """
+
+

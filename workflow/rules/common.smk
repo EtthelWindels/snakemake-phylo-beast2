@@ -44,7 +44,7 @@ def _get_ids_to_combine(wildcards):
         return files
     return "results/{dataset}/data/ids.tsv"
 
-def  _get_sequences_ids(wildcards):
+def  _get_sequence_ids(wildcards):
     data_dir = "results/{dataset}/data/"
     if _is_subsampled(wildcards) and _is_structured(wildcards):
         return data_dir + "ids_combined{sufix}.tsv"

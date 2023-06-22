@@ -1,5 +1,3 @@
-
-
 rule combine_samples:
     message:
         """

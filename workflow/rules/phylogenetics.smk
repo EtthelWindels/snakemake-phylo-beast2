@@ -4,7 +4,7 @@
 
 rule mltree:
     input:
-        aln = rules.mask_sequences.output.aln
+        alignment = _get_alignment
     output:
         tree = "results/{dataset}/trees/ml_tree_{subsampling}.{dseed}.treefile"
     params:

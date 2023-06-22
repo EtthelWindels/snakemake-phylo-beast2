@@ -10,67 +10,90 @@
 input: 
   metadata: "resources/data/metadata.tsv"
   sequences: "resources/data/sequences.fasta"
-  lapis:
-    database: "" # gisaid or open
-    seq_id: "" #gisaidEpiIsl
-    access_key: "" # only for gisaid endpoint
+  
+lapis:
+  database: "open" # gisaid or open
+  seq_id: "genbankAccession" #gisaidEpiIsl or genbankAccession
+  access_key: "LAPIS_ACCESS_KEY" # only for gisaid endpoint
 
 output:
-  lapis_import: false
-  subsample: false
-  seq_qc: true
-  alignment: true
-  mask: true
+  data_curation: false # False if you already have the alignment to run the analysis
+  align: false
+  lapis_import: true #TODO allow for mixing of lapis and user datasets
+  mask: false
   phylogenetics: true
   phylodynamics: true
 
 
-
 dataset:
-  dataset1: 
-    select: "all"      
-    filter:
-      missing_proportion: 0.1
-      min_length: 29000
+  dataset1_lapis: 
     replicates: 3
-    subsample:
-      n: -1
-      method: "random" # none, random, weighted or uniform
-      weights_file: null
-      include: null
-      exclude: null
+    structure:
+      deme1:
+        select:
+          nextcladeQcMissingDataScoreFrom: 0
+          nextcladeQcMissingDataScoreTo: 300
+          dateFrom: ""
+          dateTo: ""
+        subsample:
+          n: -1
+          method: "random" # none, random, weighted or uniform
+          weights_file: null
+          include: null
+          exclude: null
+      deme2:
+        select:
+          nextcladeQcMissingDataScoreFrom: 0
+          nextcladeQcMissingDataScoreTo: 300
+          dateFrom: ""
+          dateTo: ""
+    
+    
 
-  dataset1_structured:
-    replicates: 3
-    filter: true
-    structure: 
-      deme1: # all seqs in metadata from that type
-        select: 
-          type: "type1" # for = queries
-        qc:
-          missing_proportion: 0.1
-          min_length: 29000
-        subsample:
-          n: -1
-          method: "random" # none, random, weighted or uniform
-          weights_file: null
-          include: null
-          exclude: null
-      deme2: 
-        select:  # from metadata file example 
-          type: "type2" # for = queries
-          # date: # for < or > queries
-          #   min:
-          #   max:
-        qc:
-          missing_proportion: 0.1
-          min_length: 29000
-        subsample:
-          n: -1
-          method: "random" # none, random, weighted or uniform
-          weights_file: null
-          include: null
-          exclude: null
+  # dataset1: 
+  #   select: "all"      
+  #   filter:
+  #     missing_proportion: 0.1
+  #     min_length: 29000
+  #   replicates: 3
+  #   subsample:
+  #     n: -1
+  #     method: "random" # none, random, weighted or uniform
+  #     weights_file: null
+  #     include: null
+  #     exclude: null
+
+  # dataset1_structured:
+  #   replicates: 3
+  #   filter: true
+  #   structure: 
+  #     deme1: # all seqs in metadata from that type
+  #       select: 
+  #         type: "type1" # for = queries
+  #       qc:
+  #         missing_proportion: 0.1
+  #         min_length: 29000
+  #       subsample:
+  #         n: -1
+  #         method: "random" # none, random, weighted or uniform
+  #         weights_file: null
+  #         include: null
+  #         exclude: null
+  #     deme2: 
+  #       select:  # from metadata file example 
+  #         type: "type2" # for = queries
+  #         # date: # for < or > queries
+  #         #   min:
+  #         #   max:
+  #       qc:
+  #         missing_proportion: 0.1
+  #         min_length: 29000
+  #       subsample:
+  #         n: -1
+  #         method: "random" # none, random, weighted or uniform
+  #         weights_file: null
+  #         include: null
+  #         exclude: null
 
 
   # dataset1_structured:

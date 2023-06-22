@@ -1,5 +1,6 @@
 
-rule mask_sequences:
+
+rule mask:
     message:
         """
         Mask bases in alignment {input.aln}
@@ -9,14 +10,13 @@ rule mask_sequences:
         Rule from nextstrain ncov workflow.
         """
     input:
-        aln = (rules.load_sequences.output.aln if config["output"]["lapis_import"]
-                else rules.align.output.aln)
+        alignment = "results/{dataset}/data/aligned{sufix,.*}.fasta"
     output:
-        aln =  "results/{dataset}/data/aln_masked_{subsampling}.{dseed}.fasta"
+        masked =  "results/{dataset}/data/masked{sufix,.*}.fasta"
     log:
-        "logs/mask_{dataset}_{subsampling}.{dseed}.txt"
+        "logs/mask_{dataset}{sufix,.*}.txt"
     benchmark:
-        "benchmarks/mask_{dataset}_{subsampling}.{dseed}.txt"
+        "benchmarks/mask_{dataset}{sufix,.*}}.txt"
     params:
         mask_from_beginning = config["mask"]["mask_from_beginning"],
         mask_from_end = config["mask"]["mask_from_end"],
@@ -26,10 +26,10 @@ rule mask_sequences:
     shell:
         """
         python3 workflow/scripts/mask_alignment.py \
-            --alignment {input.aln} \
+            --alignment {input.alignment} \
             --mask-from-beginning {params.mask_from_beginning} \
             --mask-from-end {params.mask_from_end} \
             --mask-sites {params.mask_sites} \
             --mask-terminal-gaps \
-            --output {output.aln} 2> {log}
+            --output {output.masked} 2> {log}
         """
