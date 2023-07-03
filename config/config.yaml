@@ -68,17 +68,3 @@ beast:
   action: "overwrite"
   java: "/cluster/home/ceciliav/lib/beast/jre/bin/java"
   jar: "resources/BDMM-Prime-rho.jar" 
-
-  run:
-    analysis1:
-      dataset: "dataset1"
-      xml: "resources/beast_xml/example.xml"
-      model_params:
-        death_rate: 73.0
-
-    analysis2:
-      dataset: "dataset1"
-      xml: "resources/beast_xml/example.xml"
-      model_params:
-        death_rate: 36.0
-

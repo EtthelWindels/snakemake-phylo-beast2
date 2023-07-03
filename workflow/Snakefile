@@ -16,28 +16,36 @@ min_version("7.11.0")
 
 
 configfile: "config/config.yaml"
+configfile: "config/datasets.yaml"
 
 localrules: all, clean
 
 
-
-DATASETS = list(config["dataset"].keys())
+DATASETS = list(config["datasets"].keys())
 # ANALYSIS = config["beast"]["run"]
+wildcard_constraints:
+    dataset="[A-Za-z0-9_]+"
 
 # BEAST_SEED = range(1, (config["beast"].get("chains")) + 1)
 
-all_files = []
-for dataset in DATASETS:
-    if  config["dataset"][dataset].get("replicates") is not None:
-        all_files.append(expand("results/" + dataset + "/data/aligned.{dseed}.fasta", dseed = range(0, config["dataset"][dataset].get("replicates"))))
-    else:
-
-        all_files.append("results/" + dataset + "/data/aligned.fasta")
+# all_files = []
+# for dataset in DATASETS:
+#     if  config["dataset"][dataset].get("replicates") is not None:
+#         #all_files.append(expand("results/" + dataset + "/data/aligned.{dseed}.fasta", dseed = range(0, config["dataset"][dataset].get("replicates"))))
+#         all_files.append(expand("results/" + dataset + "/trees/mltree.{dseed}.tree", dseed = range(0, config["dataset"][dataset].get("replicates"))))
+#         all_files.append(expand("results/" + dataset + "/beast/chain.{dseed}.log", dseed = range(0, config["dataset"][dataset].get("replicates"))))
+#     else:
+#         #all_files.append("results/" + dataset + "/data/aligned.fasta")
+#         all_files.append("results/" + dataset + "/trees/mltree.tree")
+#         all_files.append("results/" + dataset + "/beast/chain.log")
 
 
 rule all:
     input:
-        all_files
+        # "results/data/sw1_armydem/aligned.fasta",
+        "results/data/sw1/aligned.1.fasta",
+        "results/data/sw1/ids_combined.1.tsv"
+        #all_files
 
 rule clean:
     shell:
@@ -48,43 +56,38 @@ rule clean:
 # Include workflow rules
 include: "rules/common.smk"
 
-if config["output"]["data_curation"] and not config["output"]["lapis_import"]:
-    include: "rules/sample_selection.smk"
-    include: "rules/sequences_qc.smk"
-    include: "rules/sequences_import.smk"
-    
-    if config["output"]["align"]:
-        include: "rules/alignment.smk"
+include: "rules/sample_selection.smk"
+# include: "rules/sequences_qc.smk" #TODO
+include: "rules/sample_combine.smk" 
+include: "rules/subsampling.smk" #TODO proportional subsampling
 
-include: "rules/sample_combine.smk"
-include: "rules/subsampling.smk"
+include: "rules/sequences_import.smk"
 
-if config["output"]["lapis_import"]:
-    # use rules from talking to lapis workflow
-    module lapis_import:
-        # snakefile: github("cecivale/talking-to-lapis", path="python-snakemake/workflow/Snakefile", tag = "v0.1") 
-        snakefile: "/Users/ceciliav/Tools/talking-to-LAPIS/python-snakemake/workflow/Snakefile"
-        config: config
+module lapis_import:
+    # snakefile: github("cecivale/talking-to-lapis", path="python-snakemake/workflow/Snakefile", tag = "v0.1") 
+    snakefile: "/Users/ceciliav/Tools/talking-to-LAPIS/python-snakemake/workflow/Snakefile"
+    config: config
 
-    use rule load_metadata from lapis_import as lapis_sample_selection 
+use rule load_metadata from lapis_import as lapis_select_samples
 
-    use rule load_sequences from lapis_import as lapis_sequences_import with:
-        input:
-            ids = _get_sequence_ids
-        output:
-            alignment = "results/{dataset}/data/aligned{sufix,.*}.fasta"
-        log:
-            "logs/lapis_import_seqs_{dataset}_{sufix,.*}.txt" 
+use rule load_sequences from lapis_import as lapis_import_sequences with: 
+    input:
+        ids = _get_sequence_ids
+    output:
+        alignment = "results/data/{dataset}/aligned{sufix,.*}.fasta"
+    log:
+        "logs/lapis_import_seqs_{dataset}_{sufix,.*}.txt" 
 
+ruleorder: select_samples > lapis_select_samples 
+ruleorder: align > lapis_import_sequences 
 
-if config["output"]["mask"]:
+if config["preprocessing"]["align"]:
+    include: "rules/alignment.smk"
+
+if config["preprocessing"]["mask"]:
         include: "rules/mask.smk"
 
-# If ml tree reconstruction
-#if config["output"]["phylogenetics"]:
-    #include: "rules/phylogenetics.smk"
+include: "rules/phylogenetics.smk"
+include: "rules/phylodynamics.smk"
 
-# If BEAST2 analysis
-#if config["output"]["phylodynamics"]:
-    #include: "rules/phylodynamics.smk"
-
+# TODO change from shell directive to script so they are accessible from module definition
