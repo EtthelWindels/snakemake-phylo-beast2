@@ -16,21 +16,25 @@ rule select_samples:
         Load metadata file.
         """
     input: 
-        metadata = config["input"]["metadata"]
+        metadata = _get_metadata_file 
     output:
-        ids = "results/{dataset}/data/{prefix,.*}ids.tsv",
-        metadata = "results/{dataset}/data/{prefix,.*}metadata.tsv"
+        ids = "results/data/{dataset}/{prefix,.*}ids.tsv",
+    params:
+        select = _get_select_params,
+        seq_id = _get_seq_id,
+        deme = lambda wildcards: wildcards.prefix[0:-1] or None
     log:
-        # "logs/load_metadata_{dataset}.txt"
-    conda:
-        "envs/python-genetic-data.yaml"
+        "logs/select_samples_{dataset}{prefix,.*}.txt"
+    # conda:
+    #     "envs/python-genetic-data.yaml"
     shell:
         """
         python3 workflow/scripts/query_metadata.py \
             --metadata {input.metadata} \
-            --config "{config}" \
-            --dataset {wildcards.dataset} \
-            --output {output.metadata} 2>&1 | tee {log}
+            --select "{params.select}" \
+            --seq_id {params.seq_id} \
+            --deme {params.deme} \
+            --output {output.ids} 2>&1 | tee {log}
         """
 
 

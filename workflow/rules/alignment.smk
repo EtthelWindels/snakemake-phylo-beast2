@@ -9,7 +9,7 @@ rule align:
     input:
         sequences = rules.select_sequences.output.sequences
     output:
-        alignment = "results/{dataset}/data/aligned{sufix,.*}.fasta"
+        alignment = "results/data/{dataset}/aligned{sufix,.*}.fasta"
     log:
         "logs/align_{dataset}_{sufix,.*}.txt"
     conda:

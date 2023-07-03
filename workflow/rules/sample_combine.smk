@@ -7,7 +7,7 @@ rule combine_samples:
         subsample = _get_ids_to_combine
     output:
         # combined = ("results/{dataset}/data/ids.tsv" if (lambda wildcards: _is_structured(wildcards)) else "") # Conditional rule, only for structured datasets
-        combined = "results/{dataset}/data/ids_combined{sufix,.*}.tsv" 
+        combined = "results/data/{dataset}/ids_combined{sufix,.*}.tsv" 
     log:
         # ("logs/combine_subsamples_{dataset}_{subsampling}.{dseed}.txt" if _is_structured
         # else "logs/combine_subsamples_{dataset}.txt")

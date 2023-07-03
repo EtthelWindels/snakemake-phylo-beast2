@@ -7,10 +7,26 @@
 #     ((/__) ||     Code by Ceci VA 
 # ------------------------------------------------------------------------------
 
-import urllib, json, requests, os, sys, ast
+import ast
 import argparse
 import numpy as np
 import pandas as pd
+
+
+def attr_dict_to_query(attr_dict):
+    s = str(attr_dict)
+    query = s.replace(
+        " ", "").replace(
+        "{", "").replace(
+        "}", "").replace(
+        "'", "").replace(
+        ",", "' & ").replace(
+        "From:", " >= '").replace(
+        "To:", " <= '").replace(
+        "Not:", " != '").replace(
+        ":", " == '").replace(
+        "\\n", ",") + "'"
+    return query
 
 
 if __name__ == '__main__':
@@ -18,26 +34,29 @@ if __name__ == '__main__':
         description="query metadata",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
-    parser.add_argument("--metadata", type=ast.literal_eval, required=True, help="Metadata file")
+    parser.add_argument("--metadata", type=str, required=True, help="Metadata file")
     parser.add_argument("--select", type=ast.literal_eval, required=True, help="Select config yaml") 
+    parser.add_argument("--seq_id", type=str, required=True, help="Column id to use as sample id")
     parser.add_argument("--deme", type=str, required=True, help="Deme name")
     parser.add_argument("--output", type=str, required=True,  help="Output file for metadata")
     args = parser.parse_args()
     
-    #TODO give option to pass query in select property
+    metadata = pd.read_csv(args.metadata, sep = "\t", dtype = "str")
 
-    if args.select.get('ids_file') is None:
-        data = query_dataframe(args.metadata, args.select) #TODO, maybe create query and here jsut called pandas query method
-
-        # if 'exclude_country' in attributes: # TODO include negation in query
-        #     data = data.query("country not in @attributes['exclude_country']").reset_index()
-            
-    else:
-        ids = pd.read_csv(args.select['ids_file'], sep=None)
-        id = ids.columns.values
-        data = metadata.query('@id in @ids')
-        
+    if args.select is not None:
+        query = attr_dict_to_query(args.select)
+        metadata = metadata.query(query)
     
-    data['deme'] = args.deme
-    data.to_csv(args.output, index = False, sep="\t")
+    ids = metadata[[args.seq_id]]
+    print(ids)
+    if "sample_id" in metadata:
+        ids["sample_id"] = metadata["sample_id"]
+    elif args.deme is not None:
+        ids["sample_id"] = metadata["seq_id"] + "|" + args.deme + "|" + metadata["date"]
+    else:
+        ids["sample_id"] = metadata["seq_id"] + "|" + metadata["date"]
+
+    print(ids)
+
+    ids.to_csv(args.output, index = False, sep="\t")
 

@@ -1,51 +1,41 @@
-
-
+# Common functions
 
 def _is_structured(wildcards):
-    return (config["dataset"][wildcards.dataset].get("structure") is not None)
+    return (config["datasets"][wildcards.dataset].get("structure") is not None)
 
 def _is_subsampled(wildcards):
-    return (config["dataset"][wildcards.dataset].get("replicates") is not None)
+    return (config["datasets"][wildcards.dataset].get("replicates") is not None)
 
 def _is_filtered(wildcards):
-    return (config["dataset"][wildcards.dataset].get("filter") is not None)
+    return (config["datasets"][wildcards.dataset].get("filter") is not None)
 
 def _is_filtered_deme(wildcards, deme):
-    return (config["dataset"][wildcards.dataset][deme].get("filter") is not None)
-
+    return (config["datasets"][wildcards.dataset][deme].get("filter") is not None)
 
 def _get_ids_to_subsample(wildcards):
-    # if _is_structured(wildcards):
-    #     demes = config["dataset"][wildcards.dataset]["structure"].keys()
-    #     files = []
-    #     for deme in demes:
-    #         files.append("results/{{dataset}}/data/" + deme + "/" + "ids" + 
-    #             ("_filtered" if (config["dataset"][wildcards.dataset]["structure"][deme].get("filter") is not None) else "") + ".tsv")
-    #     return files
     if _is_filtered(wildcards):
-        return "results/{dataset}/data/{prefix,.*}ids_filtered.tsv"
-
+        return "results/data/{dataset}/{prefix,.*}ids_filtered.tsv"
     else:
-        return "results/{dataset}/data/{prefix,.*}ids.tsv"
+        return "results/data/{dataset}/{prefix,.*}ids.tsv"
 
 def _get_ids_to_combine(wildcards):
     if _is_structured(wildcards):
-        demes = config["dataset"][wildcards.dataset]["structure"].keys()
+        demes = config["datasets"][wildcards.dataset]["structure"].keys()
         files = []
         for deme in demes:
-            if config["dataset"][wildcards.dataset]["structure"][deme].get("subsample") is not None:
-                files.append("results/{dataset}/data/" + deme + "/" + "ids_subsampled{sufix,*.}.tsv") 
-            elif config["dataset"][wildcards.dataset]["structure"][deme].get("filter") is not None:
-                files.append("results/{dataset}/data/" + deme + "/" + "ids_filtered.tsv") 
+            if config["datasets"][wildcards.dataset]["structure"][deme].get("subsample") is not None:
+                files.append("results/data/{dataset}/" + deme + "/" + "ids_subsampled{sufix,*.}.tsv") 
+            elif config["datasets"][wildcards.dataset]["structure"][deme].get("filter") is not None:
+                files.append("results/data/{dataset}/" + deme + "/" + "ids_filtered.tsv") 
             else:
-                files.append("results/{dataset}/data/" + deme + "/" + "ids.tsv") 
+                files.append("results/data/{dataset}/" + deme + "/" + "ids.tsv") 
             # files.append("results/{{dataset}}/data/" + deme + "/" + "ids" + 
             #     ("_filtered" if (config["dataset"][wildcards.dataset]["structure"][deme].get("filter") is not None) else "") + ".tsv")
         return files
-    return "results/{dataset}/data/ids.tsv"
+    return "results/data/{dataset}/ids.tsv"
 
 def  _get_sequence_ids(wildcards):
-    data_dir = "results/{dataset}/data/"
+    data_dir = "results/data/{dataset}/"
     if _is_subsampled(wildcards) and _is_structured(wildcards):
         return data_dir + "ids_combined{sufix}.tsv"
     if _is_subsampled(wildcards):
@@ -56,3 +46,31 @@ def  _get_sequence_ids(wildcards):
         return data_dir + "ids_filtered.tsv"
     else:
         return data_dir + "ids.tsv"
+
+
+def  _get_metadata_file(wildcards):
+    return _get_dataset_param("metadata", wildcards)
+
+def  _get_sequences_file(wildcards):
+    return _get_dataset_param("sequences", wildcards)
+
+
+def  _get_select_params(wildcards):
+    return _get_dataset_param("select", wildcards)
+
+def  _get_seq_id(wildcards):
+    seq_id = _get_dataset_param("seq_id", wildcards) or config["lapis"]["seq_id"]
+    return seq_id
+
+def  _get_dataset_param(param, wildcards):
+    if _is_structured(wildcards):
+        return config["datasets"][wildcards.dataset]["structure"][wildcards.prefix[0:-1]].get(param)
+    else:
+        return config["datasets"][wildcards.dataset].get(param)
+
+def  _get_subsampling_param(param, wildcards):
+    if _is_structured(wildcards):
+        return config["datasets"][wildcards.dataset]["structure"][wildcards.prefix[0:-1]]["subsample"].get(param)
+    else:
+        return config["datasets"][wildcards.dataset]["subsample"].get(param)
+

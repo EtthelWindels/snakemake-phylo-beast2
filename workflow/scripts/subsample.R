@@ -8,25 +8,29 @@
 # ------------------------------------------------------------------------------
 
 
-subsample <- function(metadata_file, include_file, exclude_file, n, method,  seq_id, cases_file, seed, output_file) {
+subsample <- function(ids_file, metadata_file, include_file, exclude_file, 
+                      n, method, weights, seed, 
+                      output_file) {
   
   set.seed(seed)
+  ids <- read_tsv(ids_file)
   df <- read_tsv(metadata_file) %>% 
-    mutate(week = floor_date(date, "week", week_start = 1),
-           id = genbankAccession)
+    filter(sample_id %in% ids$sample_id) %>%
+    mutate(week = floor_date(date, "week", week_start = 1))
+    #       id = genbankAccession)
   
   if (n != -1) {
     
     # Include and exclude specific sequences by id
     if (include_file != "None") {
       include <- read_lines(include_file)
-      include_df <- df %>% filter(id %in% include)
+      include_df <- df %>% filter(sample_id %in% include)
     } else include_df <- tibble()
     
     if (exclude_file != "None") {
       exclude <- read_lines(exclude_file)
       df <- df %>%  
-        filter(!id %in% exclude)
+        filter(!sample_id %in% exclude)
     }
     
     # Subsample
@@ -36,7 +40,7 @@ subsample <- function(metadata_file, include_file, exclude_file, n, method,  seq
         sample_n(size = min(n(), n), replace = F)
     
     } else if (method == "cases") {
-        
+      # TODO implement proportional subsampling with weights instead of cases explicit
       # 2. Proportional to cases in each week
       cases <- read.csv(cases_file)
       cases_filtered <- cases %>%
@@ -82,8 +86,7 @@ subsample <- function(metadata_file, include_file, exclude_file, n, method,  seq
     labs(title = paste(unique(df$deme), "subsampled sequences, method:", method))
   
   subsample_to_save <- subsample %>%
-    mutate(seq_name = paste0(!!sym(seq_id), "|", deme, "|", date)) %>%
-    select(seq_id, seq_name)
+    select(names(ids))
   
   # Save plot and subsample
   ggsave(gsub(".tsv", "_plot.pdf", output_file), gp, device = "pdf", width = 5)
@@ -99,20 +102,20 @@ library(argparse)
 
 # Parser -----------------------------------------------------------------------
 parser <- argparse::ArgumentParser()
+parser$add_argument("--ids_file", type = "character", 
+                    help = "ids .tsv  file")
 parser$add_argument("--metadata_file", type = "character", 
-                    help = "metadata tsv file with country and date")
+                    help = "metadata tsv file ")
 parser$add_argument("--include_file", type = "character", 
-                    help = "include file with strain ids")
+                    help = "include file with sample ids")
 parser$add_argument("--exclude_file", type = "character", 
-                    help = "exclude file with strain ids")
+                    help = "exclude file with sample ids")
 parser$add_argument("--n", type = "integer",
                     help = "number of seqs to subsample")
 parser$add_argument("--method", type = "character",
                     help = "type of subsampling")
-parser$add_argument("--seq_id", type = "character",
-                    help = "sequence identifier")
-parser$add_argument("--cases_file", type = "character",
-                    help = "Cases file")
+parser$add_argument("--weights", type = "character",
+                    help = "Weights for proportional subsampling")
 parser$add_argument("--seed", type = "integer")
 parser$add_argument("--output_file", type = "character",
                     help = "Output file for subsample")
@@ -120,13 +123,13 @@ parser$add_argument("--output_file", type = "character",
 args <- parser$parse_args()
 
 # Subsampling ------------------------------------------------------------------
-subsample_output <- subsample(args$metadata_file, 
+subsample_output <- subsample(args$ids_file, 
+                              args$metadata_file, 
                               args$include_file,
                               args$exclude_file,
                               args$n, 
                               args$method, 
-                              args$seq_id,
-                              args$cases_file,
+                              args$weights,
                               args$seed, 
                               args$output_file) 
 

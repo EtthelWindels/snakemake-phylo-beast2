@@ -7,153 +7,44 @@
 #     ((/__) ||     Code by Ceci VA 
 # ------------------------------------------------------------------------------
 
-input: 
-  metadata: "resources/data/metadata.tsv"
-  sequences: "resources/data/sequences.fasta"
-  
-lapis:
-  database: "open" # gisaid or open
-  seq_id: "genbankAccession" #gisaidEpiIsl or genbankAccession
-  access_key: "LAPIS_ACCESS_KEY" # only for gisaid endpoint
+# use snakemake templates
+
+run: # add phylogenetics as part of run definition
+  analysis1:
+    dataset: "dataset1"
+    phylogenetics:
+      tree_args: " -m GTR -nstop 50 -ninit 50 -bb 1000 -redo"
+    phylodynamics:
+      xml: "resources/beast_xml/example.xml"
+      model_params:
+        death_rate: 73.0
+
+  analysis2:
+    dataset: "dataset1"
+    xml: "resources/beast_xml/example.xml"
+    model_params:
+      death_rate: 36.0
 
 output:
-  data_curation: false # False if you already have the alignment to run the analysis
-  align: false
-  lapis_import: true #TODO allow for mixing of lapis and user datasets
+  plot_dataset: true
+  plot_tree: true
+  check_ESS: true
+  plot_parameters:
+    - Re
+    - ReAmongDemes
+    - clockRate
+# check ESS, if passed MCC tree and parameter plots (user defined parameters)
+  # add config file for plotting output
+  # check ess of chains already combined, user defined burnin or try different values automatically to maximize ess
+  # use ugne's feast class to random initialize the parameters
+
+lapis:
+  seq_id: "strain" 
+  database: "open" # gisaid or open
+
+preprocessing:
+  align: true
   mask: false
-  phylogenetics: true
-  phylodynamics: true
-
-
-dataset:
-  dataset1_lapis: 
-    replicates: 3
-    structure:
-      deme1:
-        select:
-          nextcladeQcMissingDataScoreFrom: 0
-          nextcladeQcMissingDataScoreTo: 300
-          dateFrom: ""
-          dateTo: ""
-        subsample:
-          n: -1
-          method: "random" # none, random, weighted or uniform
-          weights_file: null
-          include: null
-          exclude: null
-      deme2:
-        select:
-          nextcladeQcMissingDataScoreFrom: 0
-          nextcladeQcMissingDataScoreTo: 300
-          dateFrom: ""
-          dateTo: ""
-    
-    
-
-  # dataset1: 
-  #   select: "all"      
-  #   filter:
-  #     missing_proportion: 0.1
-  #     min_length: 29000
-  #   replicates: 3
-  #   subsample:
-  #     n: -1
-  #     method: "random" # none, random, weighted or uniform
-  #     weights_file: null
-  #     include: null
-  #     exclude: null
-
-  # dataset1_structured:
-  #   replicates: 3
-  #   filter: true
-  #   structure: 
-  #     deme1: # all seqs in metadata from that type
-  #       select: 
-  #         type: "type1" # for = queries
-  #       qc:
-  #         missing_proportion: 0.1
-  #         min_length: 29000
-  #       subsample:
-  #         n: -1
-  #         method: "random" # none, random, weighted or uniform
-  #         weights_file: null
-  #         include: null
-  #         exclude: null
-  #     deme2: 
-  #       select:  # from metadata file example 
-  #         type: "type2" # for = queries
-  #         # date: # for < or > queries
-  #         #   min:
-  #         #   max:
-  #       qc:
-  #         missing_proportion: 0.1
-  #         min_length: 29000
-  #       subsample:
-  #         n: -1
-  #         method: "random" # none, random, weighted or uniform
-  #         weights_file: null
-  #         include: null
-  #         exclude: null
-
-
-  # dataset1_structured:
-  #   structure: 
-  #     deme1: # all seqs in metadata from that type
-  #       select:
-  #         type: "type1" # for = queries
-  #     deme2: 
-  #       select: # from metadata file example 
-  #         type: "type2" # for = queries
-  #         # date: # for < or > queries
-  #         #   min:
-  #         #   max:
-          
-        
-  # dataset2:
-  #   replicates: 3
-  #   select: # from metadata file example 
-  #       date: # for < or > queries
-  #         min:
-  #         max:
-  #       type: # for = queries
-  #   subsample:
-  #       n: -1
-  #       method: "random" # none, random, weighted or uniform
-  #       weights_file: null
-  #       include: null
-  #       exclude: null
-
-  #   dataset2_structured: # with lapis import
-  #   deme1:
-  #     select: # lapis import example from id file
-  #       ids_file: ""
-  #       nextcladeQcMissingDataScoreFrom: 0
-  #       nextcladeQcMissingDataScoreTo: 300
-  #       dateFrom: ""
-  #       dateTo: ""
-  #     subsample:
-  #       n: -1
-  #       # method: "random" # none, random, weighted or uniform
-  #       # weights_file: null
-  #       include: null
-  #       exclude: null
-  #       # replicates: 1
-        
-  #   deme2:
-  #     select: # lapis import example with subsample and replicates
-  #       ids_file: ""
-  #       nextcladeQcMissingDataScoreFrom: 0
-  #       nextcladeQcMissingDataScoreTo: 300
-  #       dateFrom: ""
-  #       dateTo: ""
-  #     subsample:
-  #       n: -1
-  #       method: "random" # none, random, weighted or uniform
-  #       weights_file: null
-  #       include: null
-  #       exclude: null
-  #       replicates: 1
-
 
 align:
   parameters:

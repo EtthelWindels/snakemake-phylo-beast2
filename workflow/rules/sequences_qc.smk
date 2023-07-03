@@ -6,7 +6,7 @@ rule filter:
         """
     input:
         ids = rules.select_samples.output.ids,
-        sequences = config["input"]["sequences"]
+        sequences = _get_sequences_file
     output:
         qc_report = "results/{dataset}/data/{prefix,.*}qc.txt",
         ids = "results/{dataset}/data/{prefix,.*}ids_filtered.tsv"
@@ -20,3 +20,4 @@ rule filter:
         """
 
 
+# saves ids that pass and the ones that don't
