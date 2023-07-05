@@ -28,17 +28,6 @@ rule subsample:
         "logs/subsample_{dataset}_{prefix,.*}.{dseed}.txt"
     # conda:
     #     "envs/r-genetic-data.yaml"
-    shell:
-        """
-        Rscript workflow/scripts/subsample.R \
-            --ids_file {input.ids} \
-            --metadata_file {input.metadata} \
-            --include_file {params.include} \
-            --exclude_file {params.exclude} \
-            --n {params.n} \
-            --method {params.method} \
-            --weights {params.weights} \
-            --seed {wildcards.dseed} \
-            --output_file {output.ids} 2>&1 | tee {log}
-        """
+    script:
+        "../scripts/subsample.R"
 

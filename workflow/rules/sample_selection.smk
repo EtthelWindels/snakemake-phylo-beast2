@@ -23,19 +23,9 @@ rule select_samples:
         select = _get_select_params,
         seq_id = _get_seq_id,
         deme = lambda wildcards: wildcards.prefix[0:-1] or None
-    log:
-        "logs/select_samples_{dataset}{prefix,.*}.txt"
+    # log:
+    #     "logs/select_samples_{dataset}" + "{prefix,.*}"[0:-1] +".txt"
     # conda:
     #     "envs/python-genetic-data.yaml"
-    shell:
-        """
-        python3 workflow/scripts/query_metadata.py \
-            --metadata {input.metadata} \
-            --select "{params.select}" \
-            --seq_id {params.seq_id} \
-            --deme {params.deme} \
-            --output {output.ids} 2>&1 | tee {log}
-        """
-
-
-
+    script: 
+        "../scripts/query_metadata.py"

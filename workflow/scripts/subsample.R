@@ -22,12 +22,12 @@ subsample <- function(ids_file, metadata_file, include_file, exclude_file,
   if (n != -1) {
     
     # Include and exclude specific sequences by id
-    if (include_file != "None") {
+    if (!is.null(include_file)) {
       include <- read_lines(include_file)
       include_df <- df %>% filter(sample_id %in% include)
     } else include_df <- tibble()
     
-    if (exclude_file != "None") {
+    if (!is.null(exclude_file)) {
       exclude <- read_lines(exclude_file)
       df <- df %>%  
         filter(!sample_id %in% exclude)
@@ -98,40 +98,17 @@ subsample <- function(ids_file, metadata_file, include_file, exclude_file,
 # Load libraries ---------------------------------------------------------------
 library(tidyverse)
 library(lubridate)
-library(argparse)
-
-# Parser -----------------------------------------------------------------------
-parser <- argparse::ArgumentParser()
-parser$add_argument("--ids_file", type = "character", 
-                    help = "ids .tsv  file")
-parser$add_argument("--metadata_file", type = "character", 
-                    help = "metadata tsv file ")
-parser$add_argument("--include_file", type = "character", 
-                    help = "include file with sample ids")
-parser$add_argument("--exclude_file", type = "character", 
-                    help = "exclude file with sample ids")
-parser$add_argument("--n", type = "integer",
-                    help = "number of seqs to subsample")
-parser$add_argument("--method", type = "character",
-                    help = "type of subsampling")
-parser$add_argument("--weights", type = "character",
-                    help = "Weights for proportional subsampling")
-parser$add_argument("--seed", type = "integer")
-parser$add_argument("--output_file", type = "character",
-                    help = "Output file for subsample")
-
-args <- parser$parse_args()
 
 # Subsampling ------------------------------------------------------------------
-subsample_output <- subsample(args$ids_file, 
-                              args$metadata_file, 
-                              args$include_file,
-                              args$exclude_file,
-                              args$n, 
-                              args$method, 
-                              args$weights,
-                              args$seed, 
-                              args$output_file) 
+subsample_output <- subsample(ids_file = snakemake@input[["ids"]], 
+                              metadata_file = snakemake@input[["metadata"]], 
+                              include_file = snakemake@params[["include"]],
+                              exclude_file = snakemake@params[["exclude"]],
+                              snakemake@params[["n"]],
+                              snakemake@params[["method"]],
+                              snakemake@params[["weights"]],
+                              snakemake@wildcards[["seed"]],
+                              snakemake@output[["ids"]]) 
 
 #TODO set color for histogram
 

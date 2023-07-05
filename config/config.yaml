@@ -9,21 +9,19 @@
 
 # use snakemake templates
 
-run: # add phylogenetics as part of run definition
-  analysis1:
-    dataset: "dataset1"
+run: 
+  phylo:
+    dataset: ["community_armydem", "armydem_asymp", "sw1_armydem","sw2_armydem","sw3_armydem"]
+    # dataset: ["community1000", "sw1", "sw2", "sw3", "sw1_armydem","sw2_armydem","sw3_armydem", "community_armydem", "armydem_asymp"]
     phylogenetics:
-      tree_args: " -m GTR -nstop 50 -ninit 50 -bb 1000 -redo"
-    phylodynamics:
-      xml: "resources/beast_xml/example.xml"
-      model_params:
-        death_rate: 73.0
+      tree_args: " -m GTR --date TAXNAME -nstop 50 -ninit 50 -bb 1000 -redo"
 
-  analysis2:
-    dataset: "dataset1"
-    xml: "resources/beast_xml/example.xml"
-    model_params:
-      death_rate: 36.0
+
+  # analysis2:
+  #   dataset: "dataset1"
+  #   xml: "resources/beast_xml/example.xml"
+  #   model_params:
+  #     death_rate: 36.0
 
 output:
   plot_dataset: true
@@ -43,7 +41,7 @@ lapis:
   database: "open" # gisaid or open
 
 preprocessing:
-  align: true
+  align: false
   mask: false
 
 align:

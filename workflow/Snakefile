@@ -42,10 +42,10 @@ wildcard_constraints:
 
 rule all:
     input:
-        # "results/data/sw1_armydem/aligned.fasta",
-        "results/data/sw1/aligned.1.fasta",
-        "results/data/sw1/ids_combined.1.tsv"
-        #all_files
+        expand("results/analysis/{analysis}/mltree/{dataset}.1.tree", 
+            analysis = config["run"].keys(),
+            dataset = config["run"]["phylo"]["dataset"])
+        # #all_files
 
 rule clean:
     shell:
@@ -79,15 +79,17 @@ use rule load_sequences from lapis_import as lapis_import_sequences with:
         "logs/lapis_import_seqs_{dataset}_{sufix,.*}.txt" 
 
 ruleorder: select_samples > lapis_select_samples 
-ruleorder: align > lapis_import_sequences 
+ruleorder: select_sequences > lapis_import_sequences 
 
 if config["preprocessing"]["align"]:
     include: "rules/alignment.smk"
+    ruleorder: align > lapis_import_sequences 
+
 
 if config["preprocessing"]["mask"]:
         include: "rules/mask.smk"
 
 include: "rules/phylogenetics.smk"
-include: "rules/phylodynamics.smk"
+# include: "rules/phylodynamics.smk"
 
 # TODO change from shell directive to script so they are accessible from module definition
