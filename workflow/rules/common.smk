@@ -76,6 +76,13 @@ def _get_deme(wildcards):
     else:
         return None
 
+def _get_seed(wildcards):
+    # Returns data seed if several replicates or 1
+    return wildcards.sufix[1:] or 1
+
+def _get_analysis_param(wildcards, ansys, param):
+    return config["run"][wildcards.analysis][ansys].get(param)
+
 def  _get_dataset_param(param, wildcards):
     if _is_structured(wildcards):
         return config["datasets"][wildcards.dataset]["structure"][wildcards.prefix[0:-1]].get(param)
