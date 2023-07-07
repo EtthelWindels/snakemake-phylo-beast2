@@ -21,7 +21,6 @@ configfile: "config/datasets.yaml"
 localrules: all, clean
 
 
-
 # ANALYSIS = config["beast"]["run"]
 wildcard_constraints:
     dataset="[A-Za-z0-9_]+"
@@ -33,13 +32,13 @@ ANALYSES = config["run"].keys()
 for analysis in ANALYSES:
     DATASETS = config["run"][analysis]["dataset"]
     for dataset in DATASETS:
-        if config["run"][analysis].get("phylogenetics") is not None:
+        if config["run"][analysis].get("iqtree") is not None:
             if  config["datasets"][dataset].get("replicates") is not None:
-                all_files.append(expand("results/analysis/" + analysis + "/mltree/" + dataset + ".{dseed}.treefile", dseed = range(0, config["datasets"][dataset].get("replicates"))))
+                all_files.append(expand("results/analysis/" + analysis + "/iqtree/" + dataset + ".{dseed}.treefile", dseed = range(0, config["datasets"][dataset].get("replicates"))))
             else:
-                all_files.append("results/analysis/" + analysis + "/mltree/" + dataset + ".treefile")
+                all_files.append("results/analysis/" + analysis + "/iqtree/" + dataset + ".treefile")
         
-        if config["run"][analysis].get("phylodynamics") is not None:
+        if config["run"][analysis].get("beast") is not None:
             if  config["datasets"][dataset].get("replicates") is not None:
                 all_files.append(expand("results/analysis/" + analysis + "/beast/" + dataset + ".{dseed}.log", dseed = range(0, config["datasets"][dataset].get("replicates"))))
             else:
@@ -48,7 +47,7 @@ for analysis in ANALYSES:
 
 rule all:
     input:
-        # expand(expand("results/analysis/{analysis}/mltree/{dataset}.{{dseed}}.treefile", 
+        # expand(expand("results/analysis/{analysis}/iqtree/{dataset}.{{dseed}}.treefile", 
         #     dseed = config["dataset"]["{dataset}"]["replicates"]),
         #     analysis = config["run"].keys(),
         #     dataset = config["run"]["phylo"]["dataset"])
