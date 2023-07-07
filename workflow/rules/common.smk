@@ -51,6 +51,13 @@ def  _get_sequence_ids(wildcards):
 def  _get_metadata_file(wildcards):
     return _get_dataset_param("metadata", wildcards)
 
+# def  _get_all_metadata_files(wildcards):
+#     datasets = config["datasets"][wildcards.dataset]["structure"].keys()
+#     metadata_files = []
+#     for d in datasets:
+#         metadata_files.append(config["datasets"][wildcards.dataset]["structure"][d].get("metadata"))
+#     return metadata_files
+
 def  _get_sequences_file(wildcards):
     return _get_dataset_param("sequences", wildcards)
 
@@ -61,6 +68,13 @@ def  _get_select_params(wildcards):
 def  _get_seq_id(wildcards):
     seq_id = _get_dataset_param("seq_id", wildcards) or config["lapis"]["seq_id"]
     return seq_id
+
+def _get_deme(wildcards):
+    if _is_structured(wildcards):
+        return config["datasets"][wildcards.dataset]["structure"][wildcards.prefix[0:-1]].get("deme", 
+            wildcards.prefix[0:-1]) 
+    else:
+        return None
 
 def  _get_dataset_param(param, wildcards):
     if _is_structured(wildcards):
