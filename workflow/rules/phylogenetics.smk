@@ -17,6 +17,7 @@ rule iqtree:
     shell:
         """
         mkdir -p "results/analysis/{wildcards.analysis}/iqtree/temp/"
+        mkdir -p "results/analysis/{wildcards.analysis}/iqtree/other/"
         cat {input.alignment} {params.outgroup_file} > {params.alignment_outgroup} 2>/dev/null  
 
         iqtree2 -s {params.alignment_outgroup}  \
@@ -28,6 +29,16 @@ rule iqtree:
         rm {params.alignment_outgroup}
         mv {params.file_name}.log logs/iqtree_{wildcards.analysis}_{wildcards.dataset}{wildcards.sufix}.log
         """
+
+rule plot_tree: #TODO add general metadata input
+    input:
+        tree = rules.iqtree.output.tree
+    output:
+        fig = "results/analysis/{analysis}/iqtree/{dataset}{sufix,.*}.png",
+    params:
+        outgroup = lambda wildcards: _get_analysis_param(wildcards, "iqtree", "outgroup"),
+    script:
+        "../scripts/plot_mltree.R"
 
 
 # rule time_tree:

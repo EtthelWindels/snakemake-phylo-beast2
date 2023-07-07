@@ -34,9 +34,9 @@ for analysis in ANALYSES:
     for dataset in DATASETS:
         if config["run"][analysis].get("iqtree") is not None:
             if  config["datasets"][dataset].get("replicates") is not None:
-                all_files.append(expand("results/analysis/" + analysis + "/iqtree/" + dataset + ".{dseed}.treefile", dseed = range(0, config["datasets"][dataset].get("replicates"))))
+                all_files.append(expand("results/analysis/" + analysis + "/iqtree/" + dataset + ".{dseed}.png", dseed = range(0, config["datasets"][dataset].get("replicates"))))
             else:
-                all_files.append("results/analysis/" + analysis + "/iqtree/" + dataset + ".treefile")
+                all_files.append("results/analysis/" + analysis + "/iqtree/" + dataset + ".png")
         
         if config["run"][analysis].get("beast") is not None:
             if  config["datasets"][dataset].get("replicates") is not None:
