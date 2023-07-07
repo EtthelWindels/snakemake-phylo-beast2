@@ -38,6 +38,9 @@ if __name__ == '__main__':
         metadata = metadata.query(query)
     
     ids = metadata[[snakemake.params["seq_id"]]]
+    if snakemake.params["deme"] is not None: 
+        ids[["deme"]] = snakemake.params["deme"] 
+
     if "sample_id" in metadata:
         ids["sample_id"] = metadata["sample_id"]
     elif snakemake.params["deme"] is not None:

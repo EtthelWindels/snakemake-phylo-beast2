@@ -18,7 +18,7 @@ subsample <- function(ids_file, metadata_file, include_file, exclude_file,
     filter(sample_id %in% ids$sample_id) %>%
     mutate(week = floor_date(date, "week", week_start = 1))
     #       id = genbankAccession)
-  
+  print(names(df))
   if (n != -1) {
     
     # Include and exclude specific sequences by id
@@ -83,9 +83,9 @@ subsample <- function(ids_file, metadata_file, include_file, exclude_file,
   # Plot
   gp <- ggplot(subsample %>% count(date, week)) +
     geom_bar(aes(date, n, fill = factor(week)), stat = "identity") +
-    labs(title = paste(unique(df$deme), "subsampled sequences, method:", method))
+    labs(title = paste("subsampled sequences, method:", method))
   
-  subsample_to_save <- subsample %>%
+  subsample_to_save <- left_join(subsample, ids) %>%
     select(names(ids))
   
   # Save plot and subsample

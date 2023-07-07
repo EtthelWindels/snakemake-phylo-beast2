@@ -22,7 +22,7 @@ rule select_samples:
     params:
         select = _get_select_params,
         seq_id = _get_seq_id,
-        deme = lambda wildcards: wildcards.prefix[0:-1] or None
+        deme = _get_deme
     # log:
     #     "logs/select_samples_{dataset}" + "{prefix,.*}"[0:-1] +".txt"
     # conda:
