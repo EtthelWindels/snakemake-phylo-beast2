@@ -1,26 +1,28 @@
 
-rule add_outgroup:
-    input:
-        alignment = "results/data/{dataset}/aligned{sufix,.*}.fasta"
-    output:
-        alignment =  "results/analysis/{analysis}/mltree/temp/{dataset}{sufix,.*}.fasta"
-    params:
-        outgroup_file = lambda wildcards: config["run"][wildcards.analysis]["phylogenetics"]["outgroup_file"],
-    log:
-        "logs/add_ougroup_{dataset}{analysis}{sufix}.log"
-    shell:
-        """
-        cat {input.alignment} {params.outgroup_file} > {output.alignment} 2>&1 | tee {log}
-        """
+# rule add_outgroup:
+#     input:
+#         alignment = "results/data/{dataset}/aligned{sufix,.*}.fasta"
+#     output:
+#         alignment =  "results/analysis/{analysis}/mltree/temp/{dataset}{sufix,.*}.fasta"
+#     params:
+#         outgroup_file = lambda wildcards: config["run"][wildcards.analysis]["phylogenetics"]["outgroup_file"],
+#     log:
+#         "logs/add_ougroup_{dataset}{analysis}{sufix}.log"
+#     shell:
+#         """
+#         cat {input.alignment} {params.outgroup_file} > {output.alignment} 2>&1 | tee {log}
+#         """
 
-# phylogenetics
+# # phylogenetics
 
 rule mltree:
     input:
-        alignment = "results/analysis/{analysis}/mltree/temp/{dataset}{sufix,.*}.fasta"
+        alignment = "results/data/{dataset}/aligned{sufix,.*}.fasta"
     output:
-        tree =  "results/analysis/{analysis}/mltree/{dataset}{sufix,.*}.tree"
+        tree =  "results/analysis/{analysis}/mltree/{dataset}{sufix,.*}.treefile"
     params:
+      outgroup_file = lambda wildcards: config["run"][wildcards.analysis]["phylogenetics"]["outgroup_file"],
+      alignment_outgroup =  "results/analysis/{analysis}/mltree/temp/{dataset}{sufix,.*}.fasta",
       tree_args = lambda wildcards: config["run"][wildcards.analysis]["phylogenetics"]["tree_args"],
       file_name = "results/analysis/{analysis}/mltree/{dataset}{sufix,.*}",
       outgroup = lambda wildcards: config["run"][wildcards.analysis]["phylogenetics"]["outgroup"],
@@ -28,14 +30,17 @@ rule mltree:
         "../envs/iqtree2.yaml"
     shell:
         """
-        iqtree2 -s {input.alignment}  \
+        mkdir -p "results/analysis/{wildcards.analysis}/mltree/temp/"
+        cat {input.alignment} {params.outgroup_file} > {params.alignment_outgroup} 2>/dev/null  
+
+        iqtree2 -s {params.alignment_outgroup}  \
         {params.tree_args} \
         -o '{params.outgroup}' \
         -pre {params.file_name} 
         # rm -f results/trees/*.ckp.gz 
         # rm -f results/trees/*.uniqueseq.phy 
         # rm -f results/trees/*.nex 
-        rm -r results/analysis/{wildcards.analysis}/mltree/temp/
+        rm {params.alignment_outgroup}
         mv {params.file_name}.log logs/mltree_{wildcards.analysis}_{wildcards.dataset}{wildcards.sufix}.log
         """
 
