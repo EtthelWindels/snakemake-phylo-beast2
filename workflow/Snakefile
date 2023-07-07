@@ -21,31 +21,38 @@ configfile: "config/datasets.yaml"
 localrules: all, clean
 
 
-DATASETS = list(config["datasets"].keys())
+
 # ANALYSIS = config["beast"]["run"]
 wildcard_constraints:
     dataset="[A-Za-z0-9_]+"
 
 # BEAST_SEED = range(1, (config["beast"].get("chains")) + 1)
 
-# all_files = []
-# for dataset in DATASETS:
-#     if  config["dataset"][dataset].get("replicates") is not None:
-#         #all_files.append(expand("results/" + dataset + "/data/aligned.{dseed}.fasta", dseed = range(0, config["dataset"][dataset].get("replicates"))))
-#         all_files.append(expand("results/" + dataset + "/trees/mltree.{dseed}.tree", dseed = range(0, config["dataset"][dataset].get("replicates"))))
-#         all_files.append(expand("results/" + dataset + "/beast/chain.{dseed}.log", dseed = range(0, config["dataset"][dataset].get("replicates"))))
-#     else:
-#         #all_files.append("results/" + dataset + "/data/aligned.fasta")
-#         all_files.append("results/" + dataset + "/trees/mltree.tree")
-#         all_files.append("results/" + dataset + "/beast/chain.log")
+all_files = []
+ANALYSES = config["run"].keys()
+for analysis in ANALYSES:
+    DATASETS = config["run"][analysis]["dataset"]
+    for dataset in DATASETS:
+        if config["run"][analysis].get("phylogenetics") is not None:
+            if  config["datasets"][dataset].get("replicates") is not None:
+                all_files.append(expand("results/analysis/" + analysis + "/mltree/" + dataset + ".{dseed}.treefile", dseed = range(0, config["datasets"][dataset].get("replicates"))))
+            else:
+                all_files.append("results/analysis/" + analysis + "/mltree/" + dataset + ".treefile")
+        
+        if config["run"][analysis].get("phylodynamics") is not None:
+            if  config["datasets"][dataset].get("replicates") is not None:
+                all_files.append(expand("results/analysis/" + analysis + "/beast/" + dataset + ".{dseed}.log", dseed = range(0, config["datasets"][dataset].get("replicates"))))
+            else:
+                all_files.append("results/analysis/" + analysis + "/beast/" + dataset + ".log")
 
 
 rule all:
     input:
-        expand("results/analysis/{analysis}/mltree/{dataset}.1.tree", 
-            analysis = config["run"].keys(),
-            dataset = config["run"]["phylo"]["dataset"])
-        # #all_files
+        # expand(expand("results/analysis/{analysis}/mltree/{dataset}.{{dseed}}.treefile", 
+        #     dseed = config["dataset"]["{dataset}"]["replicates"]),
+        #     analysis = config["run"].keys(),
+        #     dataset = config["run"]["phylo"]["dataset"])
+        all_files
 
 rule clean:
     shell:
