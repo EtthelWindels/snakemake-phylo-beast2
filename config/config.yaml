@@ -10,18 +10,10 @@
 # use snakemake templates
 
 run: 
-  phylo:
-    dataset: ["community_armydem", "armydem_asymp", "sw1_armydem","sw2_armydem","sw3_armydem"]
-    # dataset: ["community1000", "sw1", "sw2", "sw3", "sw1_armydem","sw2_armydem","sw3_armydem", "community_armydem", "armydem_asymp"]
-    phylogenetics:
+  dataset: ["community_armydem", "armydem_asymp", "sw1_armydem","sw2_armydem","sw3_armydem"]
+  analysis:
+    iqtree:
       tree_args: " -m GTR --date TAXNAME -nstop 50 -ninit 50 -bb 1000 -redo"
-
-
-  # analysis2:
-  #   dataset: "dataset1"
-  #   xml: "resources/beast_xml/example.xml"
-  #   model_params:
-  #     death_rate: 36.0
 
 output:
   plot_dataset: true

@@ -28,21 +28,21 @@ wildcard_constraints:
 # BEAST_SEED = range(1, (config["beast"].get("chains")) + 1)
 
 all_files = []
-ANALYSES = config["run"].keys()
+ANALYSES = config["run"]["analysis"].keys()
+DATASETS = config["run"]["dataset"]
 for analysis in ANALYSES:
-    DATASETS = config["run"][analysis]["dataset"]
     for dataset in DATASETS:
-        if config["run"][analysis].get("iqtree") is not None:
+        if config["run"]["analysis"].get("iqtree") is not None:
             if  config["datasets"][dataset].get("replicates") is not None:
-                all_files.append(expand("results/analysis/" + analysis + "/iqtree/" + dataset + ".{dseed}.png", dseed = range(0, config["datasets"][dataset].get("replicates"))))
+                all_files.append(expand("results/analysis/iqtree/" + dataset + ".{dseed}.png", dseed = range(0, config["datasets"][dataset].get("replicates"))))
             else:
-                all_files.append("results/analysis/" + analysis + "/iqtree/" + dataset + ".png")
+                all_files.append("results/analysis/iqtree/" + dataset + ".png")
         
-        if config["run"][analysis].get("beast") is not None:
+        if config["run"]["analysis"].get("beast") is not None:
             if  config["datasets"][dataset].get("replicates") is not None:
-                all_files.append(expand("results/analysis/" + analysis + "/beast/" + dataset + ".{dseed}.log", dseed = range(0, config["datasets"][dataset].get("replicates"))))
+                all_files.append(expand("results/analysis/beast/" + dataset + ".{dseed}.log", dseed = range(0, config["datasets"][dataset].get("replicates"))))
             else:
-                all_files.append("results/analysis/" + analysis + "/beast/" + dataset + ".log")
+                all_files.append("results/analysis/beast/" + dataset + ".log")
 
 
 rule all:

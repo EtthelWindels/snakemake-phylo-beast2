@@ -26,33 +26,33 @@ metadata_symp <- read_tsv("/Users/ceciliav/Projects/2105-cov-armee/8.final-analy
   
 metadata <- bind_rows(metadata_symp, metadata_asymp) 
 
-d <- as_tibble(tree) %>% left_join(metadata, by = c("label" = "sample_id"))
+d <- as_tibble(tree) %>% left_join(metadata, by = c("label" = "sample_id")) %>%
+  mutate(cat = case_when(deme == "asymp" ~ "asymp",
+                army_dem2 ~ "symp_armydem",
+                !army_dem2 ~ "symp"))
 
-p <- ggtree(as.treedata(d), size = 0.4, aes(color = deme))  +
-  geom_tippoint(aes(color = deme), size = 0.5) +
-  geom_nodepoint(aes(size = as.numeric(label), alpha = as.numeric(label)), shape = 15, color = "grey30") +
+p <- ggtree(as.treedata(d), size = 0.4, aes(color = cat))  +
+  geom_tippoint(aes(color = cat), size = 0.5) +
+  geom_nodepoint(aes(subset = as.numeric(label) >= 95, size = as.numeric(label), alpha = as.numeric(label)), shape = 15, color = "grey30") +
   scale_size_continuous(range = c(0, 2), name = "bootstrap") +
   scale_alpha(name = "bootstrap") +
   scale_color_jco(name = "", na.value = "grey30") +
   geom_treescale(x = 0, y = 220, label = "subs/site", fontsize = 3) 
 
 ann <- d %>% filter(!is.na(deme)) %>% 
-  mutate(cat = case_when(deme == "asymp" ~ "asymp",
-                         army_dem2 ~ "symp_armydem",
-                         TRUE ~ "symp"),
-         screening_week = case_when(isoweek(date) == 2 ~ 1,
+  mutate(screening_week = case_when(isoweek(date) == 2 ~ 1,
                                     isoweek(date) == 3 ~ 2,
                                     isoweek(date) == 6 ~ 3,
                                     TRUE ~ 3),
          sex = ifelse(is.na(sex) & deme == "asymp", "Männlich", sex)) %>%
-  select(label, deme, screening_week, division, kanton, altersjahr, sex, 
+  select(label, cat, screening_week, division, kanton, altersjahr, sex, 
          ct, nextstrainClade, 
          ) %>%
   column_to_rownames("label")
 
 
-col_deme <- pal_jco()(length(unique(ann$deme)))
-names(col_deme) <- unique(ann$deme)
+col_deme <- pal_jco()(length(unique(ann$cat)))
+names(col_deme) <- unique(ann$cat)
 
 col_week <- pal_jama()(length(unique(ann$screening_week)))
 names(col_week) <- unique(ann$screening_week)
