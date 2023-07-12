@@ -2,94 +2,100 @@
 
 rule beast:
     input:
-        alignment = rules.align.output.alignment
+        alignment = "results/data/{dataset}/aligned{sufix,.*}.fasta",
+        xml = lambda wildcards: _get_analysis_param(wildcards, "beast", "xml")
     output:
-        tree =  "results/{dataset}/beast/chain{sufix,.*}.log"
+        trace = "results/analysis/beast/{analysis}/chains/{dataset}{sufix,.*}.{chain}.log",
+        trees = "results/analysis/beast/{analysis}/chains/{dataset}{sufix,.*}.{chain}.trees",
+    params:
+        beast_command = lambda wildcards: _get_analysis_param(wildcards, "beast", "command"), 
+        action = lambda wildcards: _get_analysis_param(wildcards, "beast", "action"),
+        xml_params = lambda wildcards: str(_get_analysis_param(wildcards, "beast", "xml_params")).replace(":", "=").replace(
+            "{", "\"").replace("}", "\"").replace(" ", "").replace("'", ""),
+        folder_name = "results/analysis/beast/{analysis}/chains",
+        file_name = "{dataset}{sufix,.*}.{chain}",
+    log:
+        "logs/beast_{analysis}_{dataset}_{sufix,.*}_{chain}.txt"
+    # benchmark:
+    #     "benchmarks/beast_{dataset}_{analysis}_{subsampling}.{dseed}.{bseed}.benchmark.txt"
+    threads:
+        lambda wildcards: _get_analysis_param(wildcards, "beast", "threads"),
+    resources:
+        runtime = lambda wildcards: _get_analysis_param(wildcards, "beast", "time"),
+        mem_mb = lambda wildcards: _get_analysis_param(wildcards, "beast", "mem_mb")
     shell:
         """
-        beast -h
-#         """
+        {params.beast_command} \
+            -D aligned_fasta={input.alignment} \
+            -D {params.xml_params} \
+            -D file_name={params.folder_name}/temp/{params.file_name} \
+            -seed {wildcards.chain} \
+            -statefile "{params.folder_name}/{params.file_name}.state" \
+            -{params.action} {input.xml} 2>&1 | tee -a {log}
 
-# def _get_beast_param(param, wildcards):
-#     return config["beast"][wildcards.analysis].get(param) or config["beast"].get(param)
-
-# def _get_mrs(wildcards):
-#     ids = pd.read_csv("results/" + wildcards.dataset + "/data/ids_" + wildcards.subsampling + "." + wildcards.dseed + ".tsv", sep = '\t')
-#     dates = ids['seq_name'].str.split("|", expand=True)[2]
-#     return max(dates)
-
-# rule beast:
-#     """
-#     Running BEAST2 analysis {wildcards.analysis} BDMM-Prime, MCMC chain {wildcards.bseed}, subsample {wildcards.subsampling} {wildcards.dseed}.
-#     """
-#     input:
-#         alignment = _get_alignment,
-#         ids = rules.combine_subsamples.output.combined,
-#         xml = lambda wildcards: config["beast"][wildcards.analysis]["xml"],
-#     output:
-#         trace = "results/{dataset}/beast/{analysis}/chains/{subsampling}.{dseed}.{bseed}.f.log",
-#         trees = "results/{dataset}/beast/{analysis}/chains/{subsampling}.{dseed}.{bseed}.f.trees",
-#         typed_trees = "results/{dataset}/beast/{analysis}/chains/{subsampling}.{dseed}.{bseed}.typed.node.f.trees"
-#     params:
-#         length = lambda wildcards: _get_beast_param("length", wildcards),
-#         logevery = lambda wildcards: round(_get_beast_param("length", wildcards) / 10000),
-#         action = lambda wildcards: _get_beast_param("action", wildcards),
-#         demes = lambda wildcards: ",".join(list(config["data"][wildcards.dataset].keys())),
-#         n_types = lambda wildcards: len(config["data"][wildcards.dataset].keys()),
-#         mrs = lambda wildcards: _get_mrs(wildcards),
-#         model_params = lambda wildcards: str(_get_beast_param("model_params", wildcards)).replace(":", "=").replace(
-#             "{", "\"").replace("}", "\"").replace(" ", "").replace("'", ""),
-#         folder_name = "results/{dataset}/beast/{analysis}/chains",
-#         file_name = "{subsampling}.{dseed}.{bseed}",
-#         java =   lambda wildcards: _get_beast_param("java", wildcards), 
-#         jar =   lambda wildcards: _get_beast_param("jar", wildcards)
-#     log:
-#         "logs/beast_{dataset}_{analysis}_{subsampling}.{dseed}.{bseed}.txt"
-#     benchmark:
-#         "benchmarks/beast_{dataset}_{analysis}_{subsampling}.{dseed}.{bseed}.benchmark.txt"
-#     threads:
-#         lambda wildcards: _get_beast_param("threads", wildcards),
-#     resources:
-#         runtime = lambda wildcards: _get_beast_param("time", wildcards),
-#         mem_mb = lambda wildcards: _get_beast_param("mem_mb", wildcards)
-#     shell:
-#         """
-#         if test -f "{params.folder_name}/{params.file_name}.state" && test -f "{params.folder_name}/{params.file_name}.log  && test -f "{params.folder_name}/{params.file_name}.trees; then
-#             ACTION={params.action}
-#             scp {output.trace} {params.folder_name}/{params.file_name}.log 
-#             scp {output.trees} {params.folder_name}/{params.file_name}.trees
-#         else
-#             ACTION=overwrite
-#         fi
-
-#         mkdir -p {params.folder_name}
+        [ -f {params.folder_name}/temp/{params.file_name}.log ] && mv {params.folder_name}/temp/{params.file_name}.log {output.trace}
+        [ -f {params.folder_name}/temp/{params.file_name}.trees ] && mv {params.folder_name}/temp/{params.file_name}.trees {output.trees} 
         
-#         {params.java} -jar {params.jar} -D aligned_fasta={input.aln} \
-#             -D demes="{params.demes}" \
-#             -D n_types="{params.n_types}" \
-#             -D mrs="{params.mrs}" \
-#             -D {params.model_params} \
-#             -D chain_length={params.length} \
-#             -D log_every={params.logevery} \
-#             -D file_name={params.folder_name}/{params.file_name} \
-#             -seed {wildcards.bseed} \
-#             -statefile "{params.folder_name}/{params.file_name}.state" \
-#             -java -$ACTION {input.xml} 2>&1 | tee -a {log}
+        """
+
+
+
+
+        # """
+        # if {params.action}==resume
+        #     if test -f "{params.folder_name}/{params.file_name}.state" && test -f "{params.folder_name}/{params.file_name}.log  && test -f "{params.folder_name}/{params.file_name}.trees; then
+        #         ACTION={params.action}
+        #         scp {output.trace} {params.folder_name}/{params.file_name}.log 
+        #         scp {output.trees} {params.folder_name}/{params.file_name}.trees
+        #     else
+        #         printf '%s\n' "Resumin" >&2error no state log or trees
+        #         exit 1
+        # fi
+
+        # mkdir -p {params.folder_name}
         
-#         [ -f {params.folder_name}/{params.file_name}.log ] && mv {params.folder_name}/{params.file_name}.log {output.trace}
-#         [ -f {params.folder_name}/{params.file_name}.trees ] && mv {params.folder_name}/{params.file_name}.trees {output.trees} 
-#         """
+        # {params.beast_command} \
+        #     -D aligned_fasta={input.aln} \
+        #     -D {params.model_params} \
+        #     -D file_name={params.folder_name}/temp/{params.file_name} \
+        #     -seed {wildcards.bseed} \
+        #     -statefile "{params.folder_name}/{params.file_name}.state" \
+        #     -java -{params.action} {input.xml} 2>&1 | tee -a {log}
+        
+        # [ -f {params.folder_name}/temp/{params.file_name}.log ] && mv {params.folder_name}/temp/{params.file_name}.log {output.trace}
+        # [ -f {params.folder_name}/temp/{params.file_name}.trees ] && mv {params.folder_name}/temp/{params.file_name}.trees {output.trees} 
+        # """
 
 
+def _get_chains(wildcards):
+    files = expand(
+        "results/analysis/beast/{{analysis}}/chains/{{dataset}}{{sufix,.*}}.{chain}.{{output}}",
+        chain = range(1, _get_analysis_param(wildcards, "beast", "chains") + 1))
+    return files
 
+rule combine_chains:
+    message: 
+        """
+        Combine chain files: {input.chain_files} with LogCombiner.
+        """
+    input:
+        chain_files = _get_chains  
+    output:
+        combined_chain = "results/analysis/beast/{analysis}/{dataset}{sufix,.*}.{output}",
+        # combined_chai2n = "results/analysis/beast/{analysis}/{dataset}{sufix,.*}.trees",
+    # log:
+    #     "logs/combine_trace_{dataset}_{analysis}_{subsampling}.{dseed}.txt"
+    # benchmark:
+    #     "benchmarks/combine_trace_{dataset}_{analysis}_{subsampling}.{dseed}.benchmark.txt"
+    params:
+        burnin =  lambda wildcards: _get_analysis_param(wildcards, "beast", "burnin"),
+        input_command = lambda wildcards, input: " -log ".join(input) 
+    shell:
+        """
+        logcombiner -log {params.input_command} -o {output.combined_chain} -b {params.burnin}  2>&1 | tee -a {log}
+        """
 
-# def _get_trace_tocombine(wildcards):
-#     files = expand(
-#         "results/{{dataset}}/beast/{{analysis}}/chains/{{subsampling}}.{{dseed}}.{bseed}.f.log",
-#         bseed = BEAST_SEED)
-#     return files
-
-# rule combine_trace:
+# rule combine_trees:
 #     message: 
 #         """
 #         Combine trace files: {input.trace_files} with LogCombiner v1.8.2.
@@ -97,13 +103,13 @@ rule beast:
 #     input:
 #         trace_files = _get_trace_tocombine    
 #     output:
-#         combined_trace = "results/{dataset}/beast/{analysis}/{subsampling}.{dseed}.comb.log"
-#     log:
-#         "logs/combine_trace_{dataset}_{analysis}_{subsampling}.{dseed}.txt"
-#     benchmark:
-#         "benchmarks/combine_trace_{dataset}_{analysis}_{subsampling}.{dseed}.benchmark.txt"
+#         combined_trees = "results/analysis/beast/{analysis}/{dataset}{sufix,.*}.trees",
+#     # log:
+#     #     "logs/combine_trace_{dataset}_{analysis}_{subsampling}.{dseed}.txt"
+#     # benchmark:
+#     #     "benchmarks/combine_trace_{dataset}_{analysis}_{subsampling}.{dseed}.benchmark.txt"
 #     params:
-#         burnin = lambda wildcards: config["beast"][wildcards.analysis].get("burnin") or config["beast"].get("burnin"),
+#         burnin =  lambda wildcards: _get_analysis_param(wildcards, "beast", "burnin"),
 #         input_command = lambda wildcards, input: " -log ".join(input) 
 #     shell:
 #         """
