@@ -4,20 +4,20 @@ rule iqtree:
     input:
         alignment = "results/data/{dataset}/aligned{sufix,.*}.fasta"
     output:
-        tree =  "results/analysis/iqtree/{dataset}{sufix,.*}.treefile"
+        tree =  "results/analysis/iqtree/{analysis}/{dataset}{sufix,.*}.treefile"
     params:
-      outgroup = _get_analysis_param("iqtree", "outgroup"),
-      outgroup_file = _get_analysis_param("iqtree", "outgroup_file"),
-      alignment_outgroup =  "results/analysis/iqtree/temp/{dataset}{sufix,.*}.fasta",
-      tree_args = _get_analysis_param("iqtree", "tree_args"),
-      file_name = "results/analysis/iqtree/other/{dataset}{sufix,.*}",
+      outgroup = lambda wildcards: _get_analysis_param(wildcards, "iqtree", "outgroup"),
+      outgroup_file = lambda wildcards: _get_analysis_param(wildcards, "iqtree", "outgroup_file"),
+      alignment_outgroup =  "results/analysis/iqtree/{analysis}/temp/{dataset}{sufix,.*}.fasta",
+      tree_args = lambda wildcards: _get_analysis_param(wildcards, "iqtree", "tree_args"),
+      file_name = "results/analysis/iqtree/{analysis}/other/{dataset}{sufix,.*}",
       seed = _get_seed
     conda:
         "../envs/iqtree2.yaml"
     shell:
         """
-        mkdir -p "results/analysis/iqtree/temp/"
-        mkdir -p "results/analysis/iqtree/other/"
+        mkdir -p "results/analysis/iqtree/{wildcards.analysis}/temp/"
+        mkdir -p "results/analysis/iqtree/{wildcards.analysis}/other/"
         cat {input.alignment} {params.outgroup_file} > {params.alignment_outgroup} 2>/dev/null  
 
         iqtree2 -s {params.alignment_outgroup}  \
@@ -34,9 +34,9 @@ rule plot_tree: #TODO add general metadata input
     input:
         tree = rules.iqtree.output.tree
     output:
-        fig = "results/analysis/iqtree/{dataset}{sufix,.*}.png",
+        fig = "results/analysis/iqtree/{analysis}/{dataset}{sufix,.*}.png",
     params:
-        outgroup = _get_analysis_param("iqtree", "outgroup"),
+        outgroup = lambda wildcards: _get_analysis_param(wildcards, "iqtree", "outgroup"),
     script:
         "../scripts/plot_mltree.R"
 

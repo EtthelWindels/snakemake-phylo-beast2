@@ -24,7 +24,8 @@ def _get_ids_to_combine(wildcards):
         files = []
         for deme in demes:
             if config["datasets"][wildcards.dataset]["structure"][deme].get("subsample") is not None:
-                files.append("results/data/{dataset}/" + deme + "/" + "ids_subsampled{sufix,*.}.tsv") 
+                # files.append("results/data/{dataset}/" + deme + "/" + "ids_subsampled{sufix,*.}.tsv") 
+                files.append("results/data/{dataset}/" + deme + "/" + "ids_subsampled{sufix}.tsv") 
             elif config["datasets"][wildcards.dataset]["structure"][deme].get("filter") is not None:
                 files.append("results/data/{dataset}/" + deme + "/" + "ids_filtered.tsv") 
             else:
@@ -80,8 +81,8 @@ def _get_seed(wildcards):
     # Returns data seed if several replicates or 1
     return wildcards.sufix[1:] or 1
 
-def _get_analysis_param(analysis, param):
-    return config["run"]["analysis"][analysis].get(param)
+def _get_analysis_param(wildcards, method, param):
+    return config["analyses"][wildcards.analysis][method].get(param)
 
 def  _get_dataset_param(param, wildcards):
     if _is_structured(wildcards):

@@ -9,32 +9,40 @@
 
 # use snakemake templates
 
-run: 
-  dataset: ["community_armydem", "armydem_asymp", "sw1_armydem","sw2_armydem","sw3_armydem"]
-  analysis:
-    iqtree:
-      tree_args: " -m GTR --date TAXNAME -nstop 50 -ninit 50 -bb 1000 -redo"
+# run: 
+#   iqtree: "all_bb1000"
+#   beast: ["asymp_symp_d10", "asymp_symp_d5"]
 
-output:
-  plot_dataset: true
-  plot_tree: true
-  check_ESS: true
-  plot_parameters:
-    - Re
-    - ReAmongDemes
-    - clockRate
+run: # analysis name: - dataset name
+  analysis1: 
+    - "dataset1"
+    - "dataset2"
+  analysis2:
+    - "dataset2"
+
+config_datasets: "config/datasets.yaml"
+config_analyses: "config/analyses.yaml"
+
+# output:
+#   plot_dataset: true
+#   plot_tree: true
+#   check_ESS: true
+#   plot_parameters:
+#     - Re
+#     - ReAmongDemes
+#     - clockRate
 # check ESS, if passed MCC tree and parameter plots (user defined parameters)
   # add config file for plotting output
   # check ess of chains already combined, user defined burnin or try different values automatically to maximize ess
   # use ugne's feast class to random initialize the parameters
 
-lapis:
-  seq_id: "strain" 
-  database: "open" # gisaid or open
-
 preprocessing:
   align: false
   mask: false
+
+lapis:
+  seq_id: "strain" 
+  database: "open" # gisaid or open
 
 align:
   parameters:
@@ -44,17 +52,7 @@ mask:
   mask_from_end: 200
   mask_sites: [21846, 21987, 22992, 23012, 23063, 23604, 24410]
 
-ml_tree:
-  tree_args: " -m GTR -nstop 50 -ninit 50 -bb 1000 -redo" #--date TAXNAME -o 'EPI_ISL_406798|China|2019-12-26' for time tree
-  threads: 5
+target_files:
+  iqtree: ["treefile", "png"]
+  beast: ["log", "trees"]
 
-beast:
-  length: 10000000
-  time: 7200
-  mem_mb: 4096
-  threads: 10
-  burnin: 10
-  chains: 2
-  action: "overwrite"
-  java: "/cluster/home/ceciliav/lib/beast/jre/bin/java"
-  jar: "resources/BDMM-Prime-rho.jar" 

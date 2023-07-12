@@ -14,44 +14,42 @@ from snakemake.utils import validate, min_version
 
 min_version("7.11.0")
 
-
+# add config files
 configfile: "config/config.yaml"
-configfile: "config/datasets.yaml"
 
+if config.get("config_datasets") is not None:
+    configfile: config["config_datasets"]
+
+if config.get("config_analyses") is not None:
+    configfile: config["config_analyses"]
+
+# rules to run locally
 localrules: all, clean
 
-
-# ANALYSIS = config["beast"]["run"]
+# wildcards
 wildcard_constraints:
-    dataset="[A-Za-z0-9_]+"
+    dataset="[A-Za-z0-9_]+",
+    analysis="[A-Za-z0-9_]+",
+    sufix="[0-9.]+",
 
-# BEAST_SEED = range(1, (config["beast"].get("chains")) + 1)
-
+# Final output files
 all_files = []
-ANALYSES = config["run"]["analysis"].keys()
-DATASETS = config["run"]["dataset"]
-for analysis in ANALYSES:
-    for dataset in DATASETS:
-        if config["run"]["analysis"].get("iqtree") is not None:
-            if  config["datasets"][dataset].get("replicates") is not None:
-                all_files.append(expand("results/analysis/iqtree/" + dataset + ".{dseed}.png", dseed = range(0, config["datasets"][dataset].get("replicates"))))
-            else:
-                all_files.append("results/analysis/iqtree/" + dataset + ".png")
-        
-        if config["run"]["analysis"].get("beast") is not None:
-            if  config["datasets"][dataset].get("replicates") is not None:
-                all_files.append(expand("results/analysis/beast/" + dataset + ".{dseed}.log", dseed = range(0, config["datasets"][dataset].get("replicates"))))
-            else:
-                all_files.append("results/analysis/beast/" + dataset + ".log")
-
+ANALYSIS = config["run"].keys()
+for analysis in ANALYSIS:
+    METHODS = config["analyses"][analysis].keys()
+    DATASETS = config["run"][analysis]
+    for method in METHODS:
+        for dataset in DATASETS:
+            DATA_SEED = ["." + str(i) for i in range(0, config["datasets"][dataset].get("replicates", 0))] or ""
+            FILE_TYPE = config["target_files"][method]
+            files = expand("results/analysis/" + method + "/" + analysis + "/" + dataset + "{dseed}.{filetype}", 
+                dseed = DATA_SEED, filetype = FILE_TYPE)
+            all_files += files
 
 rule all:
     input:
-        # expand(expand("results/analysis/{analysis}/iqtree/{dataset}.{{dseed}}.treefile", 
-        #     dseed = config["dataset"]["{dataset}"]["replicates"]),
-        #     analysis = config["run"].keys(),
-        #     dataset = config["run"]["phylo"]["dataset"])
         all_files
+    default_target: True
 
 rule clean:
     shell:
@@ -96,6 +94,7 @@ if config["preprocessing"]["mask"]:
         include: "rules/mask.smk"
 
 include: "rules/phylogenetics.smk"
-# include: "rules/phylodynamics.smk"
+include: "rules/phylodynamics.smk"
+ruleorder: beast > combine_chains 
 
 # TODO change from shell directive to script so they are accessible from module definition
