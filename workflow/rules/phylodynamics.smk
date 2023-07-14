@@ -3,7 +3,8 @@
 rule beast:
     input:
         alignment = "results/data/{dataset}/aligned{sufix,.*}.fasta",
-        xml = lambda wildcards: _get_analysis_param(wildcards, "beast", "xml")
+        xml = lambda wildcards: _get_analysis_param(wildcards, "beast", "xml"),
+        ids = lambda wildcards: _get_sequence_ids(wildcards)
     output:
         trace = "results/analysis/beast/{analysis}/chains/{dataset}{sufix,.*}.{chain}.log",
         trees = "results/analysis/beast/{analysis}/chains/{dataset}{sufix,.*}.{chain}.trees",
@@ -12,6 +13,7 @@ rule beast:
         action = lambda wildcards: _get_analysis_param(wildcards, "beast", "action"),
         xml_params = lambda wildcards: str(_get_analysis_param(wildcards, "beast", "xml_params")).replace(":", "=").replace(
             "{", "\"").replace("}", "\"").replace(" ", "").replace("'", ""),
+        mrs = lambda wildcards: _get_mrs(wildcards),
         folder_name = "results/analysis/beast/{analysis}/chains",
         file_name = "{dataset}{sufix,.*}.{chain}",
     log:
@@ -25,9 +27,12 @@ rule beast:
         mem_mb = lambda wildcards: _get_analysis_param(wildcards, "beast", "mem_mb")
     shell:
         """
+        mkdir -p {params.folder_name}/temp
+
         {params.beast_command} \
             -D aligned_fasta={input.alignment} \
             -D {params.xml_params} \
+            -D mrs={params.mrs} \
             -D file_name={params.folder_name}/temp/{params.file_name} \
             -seed {wildcards.chain} \
             -statefile "{params.folder_name}/{params.file_name}.state" \

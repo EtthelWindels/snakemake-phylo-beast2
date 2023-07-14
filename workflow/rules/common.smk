@@ -35,12 +35,25 @@ def _get_ids_to_combine(wildcards):
         return files
     return "results/data/{dataset}/ids.tsv"
 
+# def  _get_sequence_ids(wildcards):
+#     data_dir = "results/data/{dataset}/"
+#     if _is_subsampled(wildcards) and _is_structured(wildcards):
+#         return data_dir + "ids_combined{sufix}.tsv"
+#     if _is_subsampled(wildcards):
+#         return data_dir + "ids_subsampled{sufix}.tsv"
+#     if _is_structured(wildcards):
+#         return data_dir + "ids_combined.tsv"
+#     if _is_filtered(wildcards):
+#         return data_dir + "ids_filtered.tsv"
+#     else:
+#         return data_dir + "ids.tsv"
+
 def  _get_sequence_ids(wildcards):
-    data_dir = "results/data/{dataset}/"
+    data_dir = "results/data/" + wildcards.dataset + "/"
     if _is_subsampled(wildcards) and _is_structured(wildcards):
-        return data_dir + "ids_combined{sufix}.tsv"
+        return data_dir + "ids_combined" + wildcards.sufix + ".tsv"
     if _is_subsampled(wildcards):
-        return data_dir + "ids_subsampled{sufix}.tsv"
+        return data_dir + "ids_subsampled" + wildcards.sufix + ".tsv"
     if _is_structured(wildcards):
         return data_dir + "ids_combined.tsv"
     if _is_filtered(wildcards):
@@ -95,4 +108,9 @@ def  _get_subsampling_param(param, wildcards):
         return config["datasets"][wildcards.dataset]["structure"][wildcards.prefix[0:-1]]["subsample"].get(param)
     else:
         return config["datasets"][wildcards.dataset]["subsample"].get(param)
+
+def _get_mrs(wildcards):
+    ids = pd.read_csv(_get_sequence_ids(wildcards), sep = '\t')
+    dates = ids['sample_id'].str.split("|", expand=True)[2]
+    return max(dates)
 
