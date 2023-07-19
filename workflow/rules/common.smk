@@ -65,12 +65,15 @@ def  _get_sequence_ids(wildcards):
 def  _get_metadata_file(wildcards):
     return _get_dataset_param("metadata", wildcards)
 
-# def  _get_all_metadata_files(wildcards):
-#     datasets = config["datasets"][wildcards.dataset]["structure"].keys()
-#     metadata_files = []
-#     for d in datasets:
-#         metadata_files.append(config["datasets"][wildcards.dataset]["structure"][d].get("metadata"))
-#     return metadata_files
+def  _get_all_metadata_files(wildcards):
+    datasets = config["datasets"].keys()
+    metadata_files = []
+    for d in datasets:
+        # TODO if structure
+        demes = config["datasets"][d]["structure"].keys()
+        for deme in demes:
+            metadata_files.append(config["datasets"][d]["structure"][deme].get("metadata"))
+    return metadata_files
 
 def  _get_sequences_file(wildcards):
     return _get_dataset_param("sequences", wildcards)
@@ -95,7 +98,7 @@ def _get_seed(wildcards):
     return wildcards.sufix[1:] or 1
 
 def _get_analysis_param(wildcards, method, param):
-    return config["analyses"][wildcards.analysis][method].get(param)
+    return config["analyses"][method][wildcards.analysis].get(param)
 
 def  _get_dataset_param(param, wildcards):
     if _is_structured(wildcards):
