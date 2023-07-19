@@ -14,6 +14,8 @@ library(treedataverse)
 library(ggsci)
 library(scales)
 
+tree_file <- "/Users/ceciliav/Projects/2105-cov-armee/8.final-analysis/results/analysis/iqtree/asymp_symp_phylogenetics/sw_community.0.treefile"
+#tree_file <- "/Users/ceciliav/Projects/2105-cov-armee/8.final-analysis/results/analysis/old/iqtree/asymp_symp_phylogenetics/sw_community_ns.treefile"
 tree_file <- snakemake@input[["tree"]]
 tree_ref <- treeio::read.tree(tree_file)
 tree <- drop.tip(tree_ref, snakemake@params[["outgroup"]])
@@ -29,7 +31,12 @@ metadata <- bind_rows(metadata_symp, metadata_asymp)
 d <- as_tibble(tree) %>% left_join(metadata, by = c("label" = "sample_id")) %>%
   mutate(cat = case_when(deme == "asymp" ~ "asymp",
                 army_dem2 ~ "symp_armydem",
-                !army_dem2 ~ "symp"))
+                !army_dem2 ~ "symp"),
+         age_cat = case_when(#altersjahr <= 18 ~ "0-18",
+                             altersjahr <= 30 ~ "0-30",
+                             altersjahr <= 60 ~ "31-60",
+                             #altersjahr <= 70 ~ "51-70",
+                             altersjahr > 60 ~ "+60"))
 
 p <- ggtree(as.treedata(d), size = 0.4, aes(color = cat))  +
   geom_tippoint(aes(color = cat), size = 0.5) +
@@ -45,11 +52,11 @@ ann <- d %>% filter(!is.na(deme)) %>%
                                     isoweek(date) == 6 ~ 3,
                                     TRUE ~ 3),
          sex = ifelse(is.na(sex) & deme == "asymp", "Männlich", sex)) %>%
-  select(label, cat, screening_week, division, kanton, altersjahr, sex, 
+  select(label, cat, screening_week, division, kanton, altersjahr, 
+         age_cat, sex, 
          ct, nextstrainClade, 
          ) %>%
   column_to_rownames("label")
-
 
 col_deme <- pal_jco()(length(unique(ann$cat)))
 names(col_deme) <- unique(ann$cat)
@@ -63,8 +70,11 @@ names(col_div) <- unique(ann$division)
 col_kanton <- pal_igv()(length(unique(ann$kanton)))
 names(col_kanton) <- unique(ann$kanton)
 
-col_age <- viridis_pal()(length(unique(ann$altersjahr)))
-names(col_age) <- unique(ann$altersjahr)
+# col_age <- viridis_pal()(length(unique(ann$altersjahr)))
+# names(col_age) <- unique(ann$altersjahr)
+
+col_age <-  viridis_pal()(length(unique(ann$age_cat)))
+names(col_age) <- unique(ann$age_cat)
 
 col_sex <- pal_npg()(length(unique(ann$sex)))
 names(col_sex) <- unique(ann$sex)
@@ -93,3 +103,28 @@ ph <- gheatmap(p, ann,
 
 
 ggsave(ph, filename = snakemake@output[["fig"]], width = 297, heigh = 210, units = "mm")
+
+# Trying things
+# p <- ggtree(tree_ref)
+# 
+# p <- p %<+% d + geom_tippoint(aes(color=cat))
+# 
+# age_data <-  d %>% filter(!is.na(deme)) %>%
+#   select(id = label, altersjahr, cat, nextstrainClade, pangoLineage)
+# p  %<+% d + geom_facet(panel = "Age", data = age_data, geom = geom_col,
+#              aes(x = altersjahr, color = cat,
+#                  fill = cat))
+# facet_plot(p, panel = "Age", data = age_data, geom = geom_col,
+#                aes(x = altersjahr,#color = cat,
+#                    fill = nextstrainClade), orientation = 'y')
+# 
+# ggplot(ann %>% filter(cat == "symp")) +
+#   geom_boxplot(aes(nextstrainClade, altersjahr))
+# 
+# 
+# 
+# c = groupClade(as_tibble(tree), .node = 249) %>% filter(group == 1)
+# d %>% filter(!is.na(deme)) %>%
+#   mutate(clade = (label %in% c$label)) %>%
+#   ggplot() +
+#   geom_violin(aes(x = altersjahr, y = clade))

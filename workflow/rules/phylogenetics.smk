@@ -32,7 +32,8 @@ rule iqtree:
 
 rule plot_tree: #TODO add general metadata input
     input:
-        tree = rules.iqtree.output.tree
+        tree = rules.iqtree.output.tree,
+        metadata =  rules.combine_metadata.output.combined
     output:
         fig = "results/analysis/iqtree/{analysis}/{dataset}{sufix,.*}.png",
     params:
