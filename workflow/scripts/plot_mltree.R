@@ -31,19 +31,24 @@ metadata <- bind_rows(metadata_symp, metadata_asymp)
 d <- as_tibble(tree) %>% left_join(metadata, by = c("label" = "sample_id")) %>%
   mutate(cat = case_when(deme == "asymp" ~ "asymp",
                 army_dem2 ~ "symp_armydem",
-                !army_dem2 ~ "symp"),
+                !army_dem2 ~ "symp",
+                TRUE ~ deme),
          age_cat = case_when(#altersjahr <= 18 ~ "0-18",
                              altersjahr <= 30 ~ "0-30",
                              altersjahr <= 60 ~ "31-60",
                              #altersjahr <= 70 ~ "51-70",
                              altersjahr > 60 ~ "+60"))
 
+col_deme <-  c("#ffd900", "#ffa600", "#1464b5")
+names(col_deme) <- c("symp", "symp_armydem", "asymp")
+
 p <- ggtree(as.treedata(d), size = 0.4, aes(color = cat))  +
+            #aes(color =  pangoLineage == "B.1.160.16"))  +
   geom_tippoint(aes(color = cat), size = 0.5) +
   geom_nodepoint(aes(subset = as.numeric(label) >= 95, size = as.numeric(label), alpha = as.numeric(label)), shape = 15, color = "grey30") +
   scale_size_continuous(range = c(0, 2), name = "bootstrap") +
   scale_alpha(name = "bootstrap") +
-  scale_color_jco(name = "", na.value = "grey30") +
+  scale_color_manual(values = col_deme, na.value = "grey30") +
   geom_treescale(x = 0, y = 220, label = "subs/site", fontsize = 3) 
 
 ann <- d %>% filter(!is.na(deme)) %>% 
@@ -58,8 +63,6 @@ ann <- d %>% filter(!is.na(deme)) %>%
          ) %>%
   column_to_rownames("label")
 
-col_deme <- pal_jco()(length(unique(ann$cat)))
-names(col_deme) <- unique(ann$cat)
 
 col_week <- pal_jama()(length(unique(ann$screening_week)))
 names(col_week) <- unique(ann$screening_week)
@@ -70,11 +73,11 @@ names(col_div) <- unique(ann$division)
 col_kanton <- pal_igv()(length(unique(ann$kanton)))
 names(col_kanton) <- unique(ann$kanton)
 
-# col_age <- viridis_pal()(length(unique(ann$altersjahr)))
-# names(col_age) <- unique(ann$altersjahr)
+col_age <- viridis_pal()(length(unique(ann$altersjahr)))
+names(col_age) <- unique(ann$altersjahr)
 
-col_age <-  viridis_pal()(length(unique(ann$age_cat)))
-names(col_age) <- unique(ann$age_cat)
+col_age_cat <-  viridis_pal()(length(unique(ann$age_cat)))
+names(col_age_cat) <- unique(ann$age_cat)
 
 col_sex <- pal_npg()(length(unique(ann$sex)))
 names(col_sex) <- unique(ann$sex)
@@ -90,6 +93,7 @@ my_colors <- c(col_deme,
                col_div,
                col_kanton,
                col_age,
+               col_age_cat,
                col_sex,
                col_ct,
                col_clade
@@ -98,7 +102,7 @@ my_colors <- c(col_deme,
 ph <- gheatmap(p, ann, 
          colnames_angle = 90, colnames_offset_y = -15, font.size = 3) +
   theme(legend.position = "none") +
-  scale_fill_manual(values = my_colors) +
+  scale_fill_manual(values = my_colors, na.value = "grey40") +
   vexpand(direction = -1, .1)
 
 
