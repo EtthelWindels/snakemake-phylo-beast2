@@ -72,7 +72,9 @@ def  _get_all_metadata_files(wildcards):
         # TODO if structure
         demes = config["datasets"][d]["structure"].keys()
         for deme in demes:
-            metadata_files.append(config["datasets"][d]["structure"][deme].get("metadata"))
+            metadata = config["datasets"][d]["structure"][deme].get("metadata")
+            if metadata not in metadata_files:
+                metadata_files.append(metadata)
     return metadata_files
 
 def  _get_sequences_file(wildcards):

@@ -10,6 +10,7 @@
 
 import urllib, json
 import pandas as pd
+import numpy as np
 from snakemake.utils import validate, min_version
 
 min_version("7.11.0")
@@ -45,7 +46,6 @@ for method in METHODS:
             files = expand("results/analysis/" + method + "/" + analysis + "/" + dataset + "{dseed}.{filetype}", 
                 dseed = DATA_SEED, filetype = FILE_TYPE)
             all_files += files
-print(all_files)
 
 rule all:
     input:
