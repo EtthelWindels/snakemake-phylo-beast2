@@ -6,3 +6,6 @@ logs/**
 .snakemake/**
 .DS_Store
 *.pdf
+workflow/README
+workflow/README.rtf
+workflow/data

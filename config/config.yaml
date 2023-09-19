@@ -9,19 +9,12 @@
 
 # use snakemake templates
 
-# run: 
-#   iqtree: "all_bb1000"
-#   beast: ["asymp_symp_d10", "asymp_symp_d5"]
+run:
+  #beast: ["bdmm_sampl025_Ma_L1","bdmm_sampl025_Ma_L2","bdmm_sampl025_Ma_L2","bdmm_sampl025_Ma_L3","bdmm_sampl025_Ma_L4"]
+  bdmm_sampl025: ["bdmm_sampl025_Ma_L2"]
 
-run: # analysis name: - dataset name
-  analysis1: 
-    - "dataset1"
-    - "dataset2"
-  analysis2:
-    - "dataset2"
-
-config_datasets: "config/datasets.yaml"
-config_analyses: "config/analyses.yaml"
+config_datasets: "../config/datasets.yaml"
+config_analyses: "../config/analyses.yaml"
 
 # output:
 #   plot_dataset: true
@@ -36,23 +29,23 @@ config_analyses: "config/analyses.yaml"
   # check ess of chains already combined, user defined burnin or try different values automatically to maximize ess
   # use ugne's feast class to random initialize the parameters
 
-preprocessing:
-  align: false
-  mask: false
-
-lapis:
-  seq_id: "strain" 
-  database: "open" # gisaid or open
-
-align:
-  parameters:
-
-mask:
-  mask_from_beginning: 100
-  mask_from_end: 200
-  mask_sites: [21846, 21987, 22992, 23012, 23063, 23604, 24410]
+#preprocessing:
+#  align: false
+#  mask: false
+#
+#lapis:
+#  seq_id: "strain" 
+#  database: "open" # gisaid or open
+#
+#align:
+#  parameters:
+#
+#mask:
+#  mask_from_beginning: 100
+#  mask_from_end: 200
+#  mask_sites: [21846, 21987, 22992, 23012, 23063, 23604, 24410]
 
 target_files:
-  iqtree: ["treefile", "png"]
-  beast: ["log", "trees"]
+  #iqtree: ["treefile", "png"]
+  bdmm_sampl025: ["log", "trees"]
 

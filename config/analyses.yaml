@@ -1,52 +1,129 @@
-# analyses:
+analyses:
   
-#   iqtree:
+  bdmm_sampl025:
     
-#     all_bb1000:
-#       dataset: ["sw_community", "sw_armydem", "sw_armydem_ns", "sw_community_ns", "armydem_community", "armydem_community_ns", "armydem_community_s2"]
-#       tree_args: " -m GTR -ninit 50 -bb 1000 -wbtl -redo"
-#       outgroup_file: "resources/reference.fasta"
-#       outgroup: "MN908947|2019-12-26"
-  
+  ### BDMM
 
-#   bats:
-    
-#     all_deme:
-#       dataset: ["sw_community", "sw_armydem", "sw_armydem_ns", "sw_community_ns", "armydem_community", "armydem_community_ns", "armydem_community_s2"]
-#       trait: "deme"
-#       n: 2
-#       jar: "~/Tools/BaTS_beta/befi-BaTS_0-2.jar"
-#       permutations: 100
-  
+  ## Sampling proportion = 0.25x estimate
 
-#   beast:
-    
-#     asymp_symp_d10:
-#       dataset: "sw_armydem"
-#       command: "beast" # or "java -jar resources/myjar.jar"
-#       action: "overwrite" # or "resume"
-#       time: 7200
-#       mem_mb: 4096
-#       threads: 10
-#       burnin: 10
-#       replicates: 2
-#       xml: "resources/beast_xml/example.xml"
-#       xml_params:
-#         length: 10000000
-#         log_every: 1000
-#         death_rate: 36.5
-    
-#     asymp_symp_d5::
-#       dataset: "sw_armydem"
-#       command: "beast" # or "java -jar resources/myjar.jar"
-#       action: "overwrite" # or "resume"
-#       time: 7200
-#       mem_mb: 4096
-#       threads: 10
-#       burnin: 10
-#       replicates: 2
-#       xml: "resources/beast_xml/example.xml"
-#       xml_params:
-#         length: 10000000
-#         log_every: 1000
-#         death_rate: 73
+  # Malawi
+
+    bdmm_sampl025_Ma_L1:
+      dataset: "Malawi_L1"
+      model: "BDMM"
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite" # or "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 3
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 757261
+        invar_C: 1446122
+        invar_G: 1440632
+        invar_T: 757157
+        length: 10000000
+        log_every: 1000
+        treelog_every: 10000
+        sampling_prop: 0.025
+
+    bdmm_sampl025_Ma_L2:
+      dataset: "Malawi_L2"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite" # or "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 2
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 758235
+        invar_C: 1449899
+        invar_G: 1444508
+        invar_T: 758105
+        length: 10000
+        log_every: 1000
+        treelog_every: 10000
+        sampling_prop: 0.025
+
+    bdmm_sampl025_Ma_L3:
+      dataset: "Malawi_L3"
+      model: "BDMM"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite" # or "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 2
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 758019
+        invar_C: 1449015
+        invar_G: 1443614
+        invar_T: 757885
+        length: 100000
+        log_every: 1000
+        treelog_every: 10000
+        sampling_prop: 0.025
+
+    bdmm_sampl025_Ma_L4:
+      dataset: "Malawi_L4"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite" # or "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 2
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 755728
+        invar_C: 1442858
+        invar_G: 1437387
+        invar_T: 755482
+        length: 100000
+        log_every: 1000
+        treelog_every: 10000
+        sampling_prop: 0.0086
+
+  # Tanzania
+
+  # The Gambia
+
+  # Vietnam
+
+  ## Sampling proportion = 0.5x estimate   
+  
+  # Malawi
+
+  # Tanzania
+
+  # The Gambia
+
+  # Vietnam     
+
+  ## Sampling proportion = 1x estimate   
+  
+  # Malawi
+
+  # Tanzania
+
+  # The Gambia
+
+  # Vietnam    
+
+  ## Sampling proportion = 1.5x estimate   
+  
+  # Malawi
+
+  # Tanzania
+
+  # The Gambia
+
+  # Vietnam    

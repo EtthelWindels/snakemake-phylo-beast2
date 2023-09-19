@@ -1,324 +1,70 @@
-datasets:
-# Datasets
-  community1000:
-    replicates: 1
-    structure: 
-      asymp: 
-        metadata: "results/data/screening/metadata.tsv"
-        sequences: "lapis"
-        select:
-          qc: "TRUE"
-      symp: 
-        metadata: "results/data/community/metadata.tsv"
-        sequences: "lapis"
-        select:
-          qc: "TRUE"
-        subsample:
-          n: 1000
-          method: "random" 
+datasets:  
 
-  armydem_asymp:
-    replicates: 1
-    structure: 
-      asymp: 
-        metadata: "results/data/screening/metadata.tsv"
-        sequences: "lapis"
-        select:
-          qc: "TRUE"
-      symp: 
-        metadata: "results/data/community/metadata.tsv"
-        sequences: "lapis"
-        select:
-          qc: "TRUE"
-          army_dem: "TRUE"
+# Malawi
 
-  community_armydem:
-    replicates: 1
-    structure: 
-      army_dem: 
-        metadata: "results/data/community/metadata.tsv"
-        sequences: "lapis"
-        select:
-          qc: "TRUE"
-          army_dem: "TRUE"
-      symp: 
-        metadata: "results/data/community/metadata.tsv"
-        sequences: "lapis"
-        select:
-          qc: "TRUE"
-          army_demNot: "TRUE"
-        subsample:
-          n: 1000
-          method: "random" 
+  Malawi_L1:
+  #  init_metadata: "data/metadata/Malawi_metadata_raw.txt"
+  #  init_alignment:
+    subsampled:
 
-  sw1:
-    replicates: 1
-    structure: 
-      asymp:
-        metadata: "results/data/screening/metadata.tsv"
-        sequences: "lapis"
-        select:
-          screening_week: 1
-          qc: "TRUE"
-      symp:
-        metadata: "results/data/community/metadata.tsv"
-        sequences: "lapis"
-        select:
-          dateFrom: "2021-01-11"
-          dateTo: "2021-01-17"
-          qc: "TRUE"
-        subsample:
-          #underreporting: [1, 2.7,5,10]
-          n: 15 #"deme-balanced"
-          method: "random"
+  Malawi_L2:
+  #  init_metadata: "data/metadata/Malawi_metadata_raw.txt",
+  #  init_alignment:
+    subsampled:
 
-  sw2:
-    replicates: 1
-    structure: 
-      asymp:
-        metadata: "results/data/screening/metadata.tsv"
-        sequences: "lapis"
-        select:
-          screening_week: 2
-          qc: "TRUE"
-      symp:
-        metadata: "results/data/community/metadata.tsv"
-        sequences: "lapis"
-        select:
-          dateFrom: "2021-01-18"
-          dateTo: "2021-01-24"
-          qc: "TRUE"
-        subsample:
-          n: 30 #"deme-balanced"
-          method: "random"
+  Malawi_L3:
+  #  init_metadata: "data/metadata/Malawi_metadata_raw.txt",
+  #  init_alignment:
+    subsampled:
 
-  sw3:
-    replicates: 1
-    structure: 
-      asymp:
-        metadata: "results/data/screening/metadata.tsv"
-        sequences: "lapis"
-        select:
-          screening_week: 3
-          qc: "TRUE"
-      symp:
-        metadata: "results/data/community/metadata.tsv"
-        sequences: "lapis"
-        select:
-          dateFrom: "2021-02-08"
-          dateTo: "2021-02-14"
-          qc: "TRUE"
-        subsample:
-          n: 9 #"deme-balanced"
-          method: "random"
+  Malawi_L4:
+  #  init_metadata: "data/metadata/Malawi_metadata_raw.txt",
+  #  init_alignment:
+    subsampled: 1
 
-  sw1_armydem:
-    replicates: 1
-    structure: 
-      asymp:
-        metadata: "results/data/screening/metadata.tsv"
-        sequences: "lapis"
-        select:
-          screening_week: 1
-          qc: "TRUE"
-      symp:
-        metadata: "results/data/community/metadata.tsv"
-        sequences: "lapis"
-        select:
-          army_dem: "TRUE"
-          dateFrom: "2021-01-11"
-          dateTo: "2021-01-17"
-          qc: "TRUE"
-        subsample:
-          n: 18 #TODO "deme-balanced"
-          method: "random"
+# Tanzania
 
-  sw2_armydem:
-    replicates: 1
-    structure: 
-      asymp:
-        metadata: "results/data/screening/metadata.tsv"
-        sequences: "lapis"
-        select:
-          screening_week: 2
-          qc: "TRUE"
-      symp:
-        metadata: "results/data/community/metadata.tsv"
-        sequences: "lapis"
-        select:
-          army_dem: "TRUE"
-          dateFrom: "2021-01-18"
-          dateTo: "2021-01-24"
-          qc: "TRUE"
-        subsample:
-          n: 35 #"deme-balanced"
-          method: "random"
+  Tanzania_L1:
+  #  metadata: "data/metadata/Tanzania_metadata_raw.txt"
+    subsampled:
 
-  sw3_armydem:
-    replicates: 1
-    structure: 
-      asymp:
-        metadata: "results/data/screening/metadata.tsv"
-        sequences: "lapis"
-        select:
-          screening_week: 3
-          qc: "TRUE"
-      symp:
-        metadata: "results/data/community/metadata.tsv"
-        sequences: "lapis"
-        select:
-          army_dem: "TRUE"
-          dateFrom: "2021-02-08"
-          # dateTo: "2021-02-14"
-          qc: "TRUE"
-        subsample:
-          n: 11 #"deme-balanced"
-          method: "random"
+  Tanzania_L2:
+  #  metadata: "data/metadata/Tanzania_metadata_raw.txt"
+    subsampled:
 
-  asymp_all:
-    asymp: 
-      metadata: "results/data/screening/metadata.tsv"
-      sequences: "lapis"
-      select:
-        qc: "TRUE"
-    symp: "tbd"
+  Tanzania_L3:
+  #  metadata: "data/metadata/Tanzania_metadata_raw.txt"
+    subsampled: 1
 
-  asymp_armydem:
-    asymp:
-      metadata: "results/data/screening/metadata.tsv"
-      sequences: "lapis"
-      select:
-        qc: "TRUE"
-    symp: "tbd"
+  Tanzania_L4:
+  #  metadata: "data/metadata/Tanzania_metadata_raw.txt"
+    subsampled:
 
+# The Gambia
 
-  # dataset1_lapis: 
-  #   replicates: 3
-  #   structure:
-  #     deme1:
-  #       select:
-  #         nextcladeQcMissingDataScoreFrom: 0
-  #         nextcladeQcMissingDataScoreTo: 300
-  #         dateFrom: ""
-  #         dasteTo: ""
-  #       subsample:
-  #         n: -1
-  #         method: "random" # none, random, weighted or uniform
-  #         weights_file: null
-  #         include: null
-  #         exclude: null
-  #     deme2:
-  #       select:
-  #         nextcladeQcMissingDataScoreFrom: 0
-  #         nextcladeQcMissingDataScoreTo: 300
-  #         dateFrom: ""
-  #         dateTo: ""
-    
-    
+  TheGambia_L2:
+  #  metadata: "data/metadata/TheGambia_metadata_raw.txt"
+    subsampled:
 
+  TheGambia_L4:
+  #  metadata: "data/metadata/TheGambia_metadata_raw.txt"
+    subsampled: 1
 
-        
-  # dataset1: 
-  #   select: "all"      
-  #   filter: true
-  #   qc:
-  #     missing_proportion: 0.1
-  #     min_length: 29000
-  #   replicates: 3
-  #   subsample:
-  #     n: -1
-  #     method: "random" # none, random, weighted or uniform
-  #     weights_file: null
-  #     include: null
-  #     exclude: null
+  TheGambia_L6:
+  #  metadata: "data/metadata/TheGambia_metadata_raw.txt"
+    subsampled:
 
-  # dataset1_structured:
-  #   replicates: 3
-  #   filter: true
-  #   structure: 
-  #     deme1: # all seqs in metadata from that type
-  #       select: 
-  #         type: "type1" # for = queries
-  #       qc:
-  #         missing_proportion: 0.1
-  #         min_length: 29000
-  #       subsample:
-  #         n: 50
-  #         method: "random" # none, random, weighted or uniform
-  #         weights_file: null
-  #         include: null
-  #         exclude: null
-  #     deme2: 
-  #       select:  # from metadata file example 
-  #         type: "type2" # for = queries
-  #         # date: # for < or > queries
-  #         #   min:
-  #         #   max:
-  #       qc:
-  #         missing_proportion: 0.1
-  #         min_length: 29000
-  #       subsample:
-  #         n: -1
-  #         method: "random" # none, random, weighted or uniform
-  #         weights_file: null
-  #         include: null
-  #         exclude: null
+# Vietnam
 
+  Vietnam_L1:
+  #  metadata: "data/metadata/Vietnam_metadata_raw.txt"
+    subsampled:
 
-  # dataset1_structured:
-  #   structure: 
-  #     deme1: # all seqs in metadata from that type
-  #       select:
-  #         type: "type1" # for = queries
-  #     deme2: 
-  #       select: # from metadata file example 
-  #         type: "type2" # for = queries
-  #         # date: # for < or > queries
-  #         #   min:
-  #         #   max:
-          
-        
-  # dataset2:
-  #   replicates: 3
-  #   select: # from metadata file example 
-  #       date: # for < or > queries
-  #         min:
-  #         max:
-  #       type: # for = queries
-  #   subsample:
-  #       n: -1
-  #       method: "random" # none, random, weighted or uniform
-  #       weights_file: null
-  #       include: null
-  #       exclude: null
+  Vietnam_L2:
+  #  metadata: "data/metadata/Vietnam_metadata_raw.txt"
+    subsampled: 1
 
-  #   dataset2_structured: # with lapis import
-  #   deme1:
-  #     select: # lapis import example from id file
-  #       ids_file: ""
-  #       nextcladeQcMissingDataScoreFrom: 0
-  #       nextcladeQcMissingDataScoreTo: 300
-  #       dateFrom: ""
-  #       dateTo: ""
-  #     subsample:
-  #       n: -1
-  #       # method: "random" # none, random, weighted or uniform
-  #       # weights_file: null
-  #       include: null
-  #       exclude: null
-  #       # replicates: 1
-        
-  #   deme2:
-  #     select: # lapis import example with subsample and replicates
-  #       ids_file: ""
-  #       nextcladeQcMissingDataScoreFrom: 0
-  #       nextcladeQcMissingDataScoreTo: 300
-  #       dateFrom: ""
-  #       dateTo: ""
-  #     subsample:
-  #       n: -1
-  #       method: "random" # none, random, weighted or uniform
-  #       weights_file: null
-  #       include: null
-  #       exclude: null
-  #       replicates: 1
+  Vietnam_L4:
+  #  metadata: "data/metadata/Vietnam_metadata_raw.txt"
+    subsampled:
+
