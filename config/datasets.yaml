@@ -3,68 +3,50 @@ datasets:
 # Malawi
 
   Malawi_L1:
-  #  init_metadata: "data/metadata/Malawi_metadata_raw.txt"
-  #  init_alignment:
     subsampled:
 
   Malawi_L2:
-  #  init_metadata: "data/metadata/Malawi_metadata_raw.txt",
-  #  init_alignment:
     subsampled:
 
   Malawi_L3:
-  #  init_metadata: "data/metadata/Malawi_metadata_raw.txt",
-  #  init_alignment:
     subsampled:
 
   Malawi_L4:
-  #  init_metadata: "data/metadata/Malawi_metadata_raw.txt",
-  #  init_alignment:
     subsampled: 1
 
 # Tanzania
 
   Tanzania_L1:
-  #  metadata: "data/metadata/Tanzania_metadata_raw.txt"
     subsampled:
 
   Tanzania_L2:
-  #  metadata: "data/metadata/Tanzania_metadata_raw.txt"
     subsampled:
 
   Tanzania_L3:
-  #  metadata: "data/metadata/Tanzania_metadata_raw.txt"
     subsampled: 1
 
   Tanzania_L4:
-  #  metadata: "data/metadata/Tanzania_metadata_raw.txt"
     subsampled:
 
 # The Gambia
 
   TheGambia_L2:
-  #  metadata: "data/metadata/TheGambia_metadata_raw.txt"
     subsampled:
 
   TheGambia_L4:
-  #  metadata: "data/metadata/TheGambia_metadata_raw.txt"
     subsampled: 1
 
   TheGambia_L6:
-  #  metadata: "data/metadata/TheGambia_metadata_raw.txt"
     subsampled:
 
 # Vietnam
 
   Vietnam_L1:
-  #  metadata: "data/metadata/Vietnam_metadata_raw.txt"
     subsampled:
 
   Vietnam_L2:
-  #  metadata: "data/metadata/Vietnam_metadata_raw.txt"
     subsampled: 1
 
   Vietnam_L4:
-  #  metadata: "data/metadata/Vietnam_metadata_raw.txt"
     subsampled:
 

@@ -1,10 +1,10 @@
 analyses:
   
-  bdmm_sampl025:
-    
   ### BDMM
 
   ## Sampling proportion = 0.25x estimate
+
+  bdmm_sampl025:
 
   # Malawi
 
@@ -12,7 +12,7 @@ analyses:
       dataset: "Malawi_L1"
       model: "BDMM"
       command: "beast" # or "java -jar resources/myjar.jar"
-      action: "overwrite" # or "overwrite"
+      action: "overwrite"
       time: 14400
       mem_mb: 4096
       threads: 10
@@ -24,106 +24,2546 @@ analyses:
         invar_C: 1446122
         invar_G: 1440632
         invar_T: 757157
-        length: 10000000
+        length: 3000
         log_every: 1000
-        treelog_every: 10000
+        treelog_every: 1000
         sampling_prop: 0.025
 
     bdmm_sampl025_Ma_L2:
       dataset: "Malawi_L2"
       model: "BDMM"      
       command: "beast" # or "java -jar resources/myjar.jar"
-      action: "overwrite" # or "overwrite"
+      action: "overwrite"
       time: 14400
       mem_mb: 4096
       threads: 10
       burnin: 10
-      chains: 2
+      chains: 1
       xml: "xml/bdmm.xml"
       xml_params:
         invar_A: 758235
         invar_C: 1449899
         invar_G: 1444508
         invar_T: 758105
-        length: 10000
+        length: 3000
         log_every: 1000
-        treelog_every: 10000
+        treelog_every: 1000
         sampling_prop: 0.025
 
     bdmm_sampl025_Ma_L3:
       dataset: "Malawi_L3"
       model: "BDMM"    
       command: "beast" # or "java -jar resources/myjar.jar"
-      action: "overwrite" # or "overwrite"
+      action: "overwrite"
       time: 14400
       mem_mb: 4096
       threads: 10
       burnin: 10
-      chains: 2
+      chains: 1
       xml: "xml/bdmm.xml"
       xml_params:
         invar_A: 758019
         invar_C: 1449015
         invar_G: 1443614
         invar_T: 757885
-        length: 100000
+        length: 3000
         log_every: 1000
-        treelog_every: 10000
+        treelog_every: 1000
         sampling_prop: 0.025
 
     bdmm_sampl025_Ma_L4:
       dataset: "Malawi_L4"
       model: "BDMM"      
       command: "beast" # or "java -jar resources/myjar.jar"
-      action: "overwrite" # or "overwrite"
+      action: "overwrite"
       time: 14400
       mem_mb: 4096
       threads: 10
       burnin: 10
-      chains: 2
+      chains: 1
       xml: "xml/bdmm.xml"
       xml_params:
         invar_A: 755728
         invar_C: 1442858
         invar_G: 1437387
         invar_T: 755482
-        length: 100000
+        length: 3000
         log_every: 1000
-        treelog_every: 10000
+        treelog_every: 1000
         sampling_prop: 0.0086
 
   # Tanzania
 
+    bdmm_sampl025_Ta_L1:
+      dataset: "Tanzania_L1"
+      model: "BDMM"
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 3
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 757193
+        invar_C: 1445620
+        invar_G: 1440304
+        invar_T: 757054
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.0095
+
+    bdmm_sampl025_Ta_L2:
+      dataset: "Tanzania_L2"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 758241
+        invar_C: 1449843
+        invar_G: 1444499
+        invar_T: 758079
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.0095
+
+    bdmm_sampl025_Ta_L3:
+      dataset: "Tanzania_L3"
+      model: "BDMM"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 757478
+        invar_C: 1447129
+        invar_G: 1441682
+        invar_T: 757287
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.0089
+
+    bdmm_sampl025_Ta_L4:
+      dataset: "Tanzania_L4"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 756818
+        invar_C: 1446064
+        invar_G: 1440575
+        invar_T: 756702
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.0095
+
   # The Gambia
+
+    bdmm_sampl025_TG_L2:
+      dataset: "TheGambia_L2"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 758196
+        invar_C: 1449808
+        invar_G: 1444461
+        invar_T: 758075
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.088
+
+    bdmm_sampl025_TG_L4:
+      dataset: "TheGambia_L4"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 756096
+        invar_C: 1443247
+        invar_G: 1437847
+        invar_T: 755861
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.048
+
+    bdmm_sampl025_TG_L6:
+      dataset: "TheGambia_L6"
+      model: "BDMM"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 756308
+        invar_C: 1442914
+        invar_G: 1437460
+        invar_T: 756142
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.060
 
   # Vietnam
 
-  ## Sampling proportion = 0.5x estimate   
-  
+    bdmm_sampl025_VN_L1:
+      dataset: "Vietnam_L1"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 755505
+        invar_C: 1438820
+        invar_G: 1433269
+        invar_T: 755399
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.045
+
+    bdmm_sampl025_VN_L2:
+      dataset: "Vietnam_L2"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 754323
+        invar_C: 1440032
+        invar_G: 1434838
+        invar_T: 754147
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.017
+
+    bdmm_sampl025_VN_L4:
+      dataset: "Vietnam_L4"
+      model: "BDMM"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 756519
+        invar_C: 1444853
+        invar_G: 1439546
+        invar_T: 756448
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.045  
+
+
+  ## Sampling proportion = 0.5x estimate
+
+  bdmm_sampl05:
+
   # Malawi
+
+    bdmm_sampl05_Ma_L1:
+      dataset: "Malawi_L1"
+      model: "BDMM"
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 3
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 757261
+        invar_C: 1446122
+        invar_G: 1440632
+        invar_T: 757157
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.051
+
+    bdmm_sampl05_Ma_L2:
+      dataset: "Malawi_L2"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 758235
+        invar_C: 1449899
+        invar_G: 1444508
+        invar_T: 758105
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.051
+
+    bdmm_sampl05_Ma_L3:
+      dataset: "Malawi_L3"
+      model: "BDMM"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 758019
+        invar_C: 1449015
+        invar_G: 1443614
+        invar_T: 757885
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.051
+
+    bdmm_sampl05_Ma_L4:
+      dataset: "Malawi_L4"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 755728
+        invar_C: 1442858
+        invar_G: 1437387
+        invar_T: 755482
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.017
 
   # Tanzania
 
+    bdmm_sampl05_Ta_L1:
+      dataset: "Tanzania_L1"
+      model: "BDMM"
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 3
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 757193
+        invar_C: 1445620
+        invar_G: 1440304
+        invar_T: 757054
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.019
+
+    bdmm_sampl05_Ta_L2:
+      dataset: "Tanzania_L2"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 758241
+        invar_C: 1449843
+        invar_G: 1444499
+        invar_T: 758079
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.019
+
+    bdmm_sampl05_Ta_L3:
+      dataset: "Tanzania_L3"
+      model: "BDMM"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 757478
+        invar_C: 1447129
+        invar_G: 1441682
+        invar_T: 757287
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.018
+
+    bdmm_sampl05_Ta_L4:
+      dataset: "Tanzania_L4"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 756818
+        invar_C: 1446064
+        invar_G: 1440575
+        invar_T: 756702
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.019
+
   # The Gambia
 
-  # Vietnam     
+    bdmm_sampl05_TG_L2:
+      dataset: "TheGambia_L2"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 758196
+        invar_C: 1449808
+        invar_G: 1444461
+        invar_T: 758075
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.18
 
-  ## Sampling proportion = 1x estimate   
-  
+    bdmm_sampl05_TG_L4:
+      dataset: "TheGambia_L4"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 756096
+        invar_C: 1443247
+        invar_G: 1437847
+        invar_T: 755861
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.095
+
+    bdmm_sampl05_TG_L6:
+      dataset: "TheGambia_L6"
+      model: "BDMM"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 756308
+        invar_C: 1442914
+        invar_G: 1437460
+        invar_T: 756142
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.12
+
+  # Vietnam
+
+    bdmm_sampl05_VN_L1:
+      dataset: "Vietnam_L1"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 755505
+        invar_C: 1438820
+        invar_G: 1433269
+        invar_T: 755399
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.090
+
+    bdmm_sampl05_VN_L2:
+      dataset: "Vietnam_L2"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 754323
+        invar_C: 1440032
+        invar_G: 1434838
+        invar_T: 754147
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.034
+
+    bdmm_sampl05_VN_L4:
+      dataset: "Vietnam_L4"
+      model: "BDMM"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 756519
+        invar_C: 1444853
+        invar_G: 1439546
+        invar_T: 756448
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.090        
+
+
+  ## Sampling proportion = 1x estimate
+
+  bdmm_sampl1:
+
   # Malawi
+
+    bdmm_sampl1_Ma_L1:
+      dataset: "Malawi_L1"
+      model: "BDMM"
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 3
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 757261
+        invar_C: 1446122
+        invar_G: 1440632
+        invar_T: 757157
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.10
+
+    bdmm_sampl1_Ma_L2:
+      dataset: "Malawi_L2"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 758235
+        invar_C: 1449899
+        invar_G: 1444508
+        invar_T: 758105
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.10
+
+    bdmm_sampl1_Ma_L3:
+      dataset: "Malawi_L3"
+      model: "BDMM"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 758019
+        invar_C: 1449015
+        invar_G: 1443614
+        invar_T: 757885
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.10
+
+    bdmm_sampl1_Ma_L4:
+      dataset: "Malawi_L4"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 755728
+        invar_C: 1442858
+        invar_G: 1437387
+        invar_T: 755482
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.035
 
   # Tanzania
 
+    bdmm_sampl1_Ta_L1:
+      dataset: "Tanzania_L1"
+      model: "BDMM"
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 3
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 757193
+        invar_C: 1445620
+        invar_G: 1440304
+        invar_T: 757054
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.038
+
+    bdmm_sampl1_Ta_L2:
+      dataset: "Tanzania_L2"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 758241
+        invar_C: 1449843
+        invar_G: 1444499
+        invar_T: 758079
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.038
+
+    bdmm_sampl1_Ta_L3:
+      dataset: "Tanzania_L3"
+      model: "BDMM"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 757478
+        invar_C: 1447129
+        invar_G: 1441682
+        invar_T: 757287
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.036
+
+    bdmm_sampl1_Ta_L4:
+      dataset: "Tanzania_L4"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 756818
+        invar_C: 1446064
+        invar_G: 1440575
+        invar_T: 756702
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.038
+
   # The Gambia
 
-  # Vietnam    
+    bdmm_sampl1_TG_L2:
+      dataset: "TheGambia_L2"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 758196
+        invar_C: 1449808
+        invar_G: 1444461
+        invar_T: 758075
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.35
 
-  ## Sampling proportion = 1.5x estimate   
-  
+    bdmm_sampl1_TG_L4:
+      dataset: "TheGambia_L4"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 756096
+        invar_C: 1443247
+        invar_G: 1437847
+        invar_T: 755861
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.19
+
+    bdmm_sampl1_TG_L6:
+      dataset: "TheGambia_L6"
+      model: "BDMM"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 756308
+        invar_C: 1442914
+        invar_G: 1437460
+        invar_T: 756142
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.24
+
+  # Vietnam
+
+    bdmm_sampl1_VN_L1:
+      dataset: "Vietnam_L1"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 755505
+        invar_C: 1438820
+        invar_G: 1433269
+        invar_T: 755399
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.18
+
+    bdmm_sampl1_VN_L2:
+      dataset: "Vietnam_L2"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 754323
+        invar_C: 1440032
+        invar_G: 1434838
+        invar_T: 754147
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.068
+
+    bdmm_sampl1_VN_L4:
+      dataset: "Vietnam_L4"
+      model: "BDMM"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 756519
+        invar_C: 1444853
+        invar_G: 1439546
+        invar_T: 756448
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.18   
+
+
+  ## Sampling proportion = 1.5x estimate
+
+  bdmm_sampl15:
+
   # Malawi
+
+    bdmm_sampl15_Ma_L1:
+      dataset: "Malawi_L1"
+      model: "BDMM"
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 3
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 757261
+        invar_C: 1446122
+        invar_G: 1440632
+        invar_T: 757157
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.15
+
+    bdmm_sampl15_Ma_L2:
+      dataset: "Malawi_L2"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 758235
+        invar_C: 1449899
+        invar_G: 1444508
+        invar_T: 758105
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.15
+
+    bdmm_sampl15_Ma_L3:
+      dataset: "Malawi_L3"
+      model: "BDMM"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 758019
+        invar_C: 1449015
+        invar_G: 1443614
+        invar_T: 757885
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.15
+
+    bdmm_sampl15_Ma_L4:
+      dataset: "Malawi_L4"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 755728
+        invar_C: 1442858
+        invar_G: 1437387
+        invar_T: 755482
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.052
 
   # Tanzania
 
+    bdmm_sampl15_Ta_L1:
+      dataset: "Tanzania_L1"
+      model: "BDMM"
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 3
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 757193
+        invar_C: 1445620
+        invar_G: 1440304
+        invar_T: 757054
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.057
+
+    bdmm_sampl15_Ta_L2:
+      dataset: "Tanzania_L2"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 758241
+        invar_C: 1449843
+        invar_G: 1444499
+        invar_T: 758079
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.057
+
+    bdmm_sampl15_Ta_L3:
+      dataset: "Tanzania_L3"
+      model: "BDMM"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 757478
+        invar_C: 1447129
+        invar_G: 1441682
+        invar_T: 757287
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.054
+
+    bdmm_sampl15_Ta_L4:
+      dataset: "Tanzania_L4"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 756818
+        invar_C: 1446064
+        invar_G: 1440575
+        invar_T: 756702
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.057
+
   # The Gambia
 
-  # Vietnam    
+    bdmm_sampl15_TG_L2:
+      dataset: "TheGambia_L2"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 758196
+        invar_C: 1449808
+        invar_G: 1444461
+        invar_T: 758075
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.53
+
+    bdmm_sampl15_TG_L4:
+      dataset: "TheGambia_L4"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 756096
+        invar_C: 1443247
+        invar_G: 1437847
+        invar_T: 755861
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.29
+
+    bdmm_sampl15_TG_L6:
+      dataset: "TheGambia_L6"
+      model: "BDMM"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 756308
+        invar_C: 1442914
+        invar_G: 1437460
+        invar_T: 756142
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.36
+
+  # Vietnam
+
+    bdmm_sampl15_VN_L1:
+      dataset: "Vietnam_L1"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 755505
+        invar_C: 1438820
+        invar_G: 1433269
+        invar_T: 755399
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.27
+
+    bdmm_sampl15_VN_L2:
+      dataset: "Vietnam_L2"
+      model: "BDMM"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 754323
+        invar_C: 1440032
+        invar_G: 1434838
+        invar_T: 754147
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.10
+
+    bdmm_sampl15_VN_L4:
+      dataset: "Vietnam_L4"
+      model: "BDMM"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdmm.xml"
+      xml_params:
+        invar_A: 756519
+        invar_C: 1444853
+        invar_G: 1439546
+        invar_T: 756448
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.27
+
+
+  ### BD
+
+  ## Sampling proportion = 0.25x estimate
+  
+  bd_sampl025:
+
+  # Malawi
+
+    bd_sampl025_Ma_L1:
+      dataset: "Malawi_L1"
+      model: "BD"
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 3
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 757261
+        invar_C: 1446122
+        invar_G: 1440632
+        invar_T: 757157
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.025
+
+    bd_sampl025_Ma_L2:
+      dataset: "Malawi_L2"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 758235
+        invar_C: 1449899
+        invar_G: 1444508
+        invar_T: 758105
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.025
+
+    bd_sampl025_Ma_L3:
+      dataset: "Malawi_L3"
+      model: "BD"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 758019
+        invar_C: 1449015
+        invar_G: 1443614
+        invar_T: 757885
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.025
+
+    bd_sampl025_Ma_L4:
+      dataset: "Malawi_L4"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 755728
+        invar_C: 1442858
+        invar_G: 1437387
+        invar_T: 755482
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.0086
+
+  # Tanzania
+
+    bd_sampl025_Ta_L1:
+      dataset: "Tanzania_L1"
+      model: "BD"
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 3
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 757193
+        invar_C: 1445620
+        invar_G: 1440304
+        invar_T: 757054
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.0095
+
+    bd_sampl025_Ta_L2:
+      dataset: "Tanzania_L2"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 758241
+        invar_C: 1449843
+        invar_G: 1444499
+        invar_T: 758079
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.0095
+
+    bd_sampl025_Ta_L3:
+      dataset: "Tanzania_L3"
+      model: "BD"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 757478
+        invar_C: 1447129
+        invar_G: 1441682
+        invar_T: 757287
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.0089
+
+    bd_sampl025_Ta_L4:
+      dataset: "Tanzania_L4"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 756818
+        invar_C: 1446064
+        invar_G: 1440575
+        invar_T: 756702
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.0095
+
+  # The Gambia
+
+    bd_sampl025_TG_L2:
+      dataset: "TheGambia_L2"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 758196
+        invar_C: 1449808
+        invar_G: 1444461
+        invar_T: 758075
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.088
+
+    bd_sampl025_TG_L4:
+      dataset: "TheGambia_L4"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 756096
+        invar_C: 1443247
+        invar_G: 1437847
+        invar_T: 755861
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.048
+
+    bd_sampl025_TG_L6:
+      dataset: "TheGambia_L6"
+      model: "BD"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 756308
+        invar_C: 1442914
+        invar_G: 1437460
+        invar_T: 756142
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.060
+
+  # Vietnam
+
+    bd_sampl025_VN_L1:
+      dataset: "Vietnam_L1"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 755505
+        invar_C: 1438820
+        invar_G: 1433269
+        invar_T: 755399
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.045
+
+    bd_sampl025_VN_L2:
+      dataset: "Vietnam_L2"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 754323
+        invar_C: 1440032
+        invar_G: 1434838
+        invar_T: 754147
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.017
+
+    bd_sampl025_VN_L4:
+      dataset: "Vietnam_L4"
+      model: "BD"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 756519
+        invar_C: 1444853
+        invar_G: 1439546
+        invar_T: 756448
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.045  
+
+
+  ## Sampling proportion = 0.5x estimate
+
+  bd_sampl05:
+
+  # Malawi
+
+    bd_sampl05_Ma_L1:
+      dataset: "Malawi_L1"
+      model: "BD"
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 3
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 757261
+        invar_C: 1446122
+        invar_G: 1440632
+        invar_T: 757157
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.051
+
+    bd_sampl05_Ma_L2:
+      dataset: "Malawi_L2"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 758235
+        invar_C: 1449899
+        invar_G: 1444508
+        invar_T: 758105
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.051
+
+    bd_sampl05_Ma_L3:
+      dataset: "Malawi_L3"
+      model: "BD"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 758019
+        invar_C: 1449015
+        invar_G: 1443614
+        invar_T: 757885
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.051
+
+    bd_sampl05_Ma_L4:
+      dataset: "Malawi_L4"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 755728
+        invar_C: 1442858
+        invar_G: 1437387
+        invar_T: 755482
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.017
+
+  # Tanzania
+
+    bd_sampl05_Ta_L1:
+      dataset: "Tanzania_L1"
+      model: "BD"
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 3
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 757193
+        invar_C: 1445620
+        invar_G: 1440304
+        invar_T: 757054
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.019
+
+    bd_sampl05_Ta_L2:
+      dataset: "Tanzania_L2"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 758241
+        invar_C: 1449843
+        invar_G: 1444499
+        invar_T: 758079
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.019
+
+    bd_sampl05_Ta_L3:
+      dataset: "Tanzania_L3"
+      model: "BD"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 757478
+        invar_C: 1447129
+        invar_G: 1441682
+        invar_T: 757287
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.018
+
+    bd_sampl05_Ta_L4:
+      dataset: "Tanzania_L4"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 756818
+        invar_C: 1446064
+        invar_G: 1440575
+        invar_T: 756702
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.019
+
+  # The Gambia
+
+    bd_sampl05_TG_L2:
+      dataset: "TheGambia_L2"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 758196
+        invar_C: 1449808
+        invar_G: 1444461
+        invar_T: 758075
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.18
+
+    bd_sampl05_TG_L4:
+      dataset: "TheGambia_L4"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 756096
+        invar_C: 1443247
+        invar_G: 1437847
+        invar_T: 755861
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.095
+
+    bd_sampl05_TG_L6:
+      dataset: "TheGambia_L6"
+      model: "BD"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 756308
+        invar_C: 1442914
+        invar_G: 1437460
+        invar_T: 756142
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.12
+
+  # Vietnam
+
+    bd_sampl05_VN_L1:
+      dataset: "Vietnam_L1"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 755505
+        invar_C: 1438820
+        invar_G: 1433269
+        invar_T: 755399
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.090
+
+    bd_sampl05_VN_L2:
+      dataset: "Vietnam_L2"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 754323
+        invar_C: 1440032
+        invar_G: 1434838
+        invar_T: 754147
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.034
+
+    bd_sampl05_VN_L4:
+      dataset: "Vietnam_L4"
+      model: "BD"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 756519
+        invar_C: 1444853
+        invar_G: 1439546
+        invar_T: 756448
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.090        
+
+
+  ## Sampling proportion = 1x estimate
+
+  bd_sampl1:
+
+  # Malawi
+
+    bd_sampl1_Ma_L1:
+      dataset: "Malawi_L1"
+      model: "BD"
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 3
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 757261
+        invar_C: 1446122
+        invar_G: 1440632
+        invar_T: 757157
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.10
+
+    bd_sampl1_Ma_L2:
+      dataset: "Malawi_L2"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 758235
+        invar_C: 1449899
+        invar_G: 1444508
+        invar_T: 758105
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.10
+
+    bd_sampl1_Ma_L3:
+      dataset: "Malawi_L3"
+      model: "BD"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 758019
+        invar_C: 1449015
+        invar_G: 1443614
+        invar_T: 757885
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.10
+
+    bd_sampl1_Ma_L4:
+      dataset: "Malawi_L4"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 755728
+        invar_C: 1442858
+        invar_G: 1437387
+        invar_T: 755482
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.035
+
+  # Tanzania
+
+    bd_sampl1_Ta_L1:
+      dataset: "Tanzania_L1"
+      model: "BD"
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 3
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 757193
+        invar_C: 1445620
+        invar_G: 1440304
+        invar_T: 757054
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.038
+
+    bd_sampl1_Ta_L2:
+      dataset: "Tanzania_L2"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 758241
+        invar_C: 1449843
+        invar_G: 1444499
+        invar_T: 758079
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.038
+
+    bd_sampl1_Ta_L3:
+      dataset: "Tanzania_L3"
+      model: "BD"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 757478
+        invar_C: 1447129
+        invar_G: 1441682
+        invar_T: 757287
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.036
+
+    bd_sampl1_Ta_L4:
+      dataset: "Tanzania_L4"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 756818
+        invar_C: 1446064
+        invar_G: 1440575
+        invar_T: 756702
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.038
+
+  # The Gambia
+
+    bd_sampl1_TG_L2:
+      dataset: "TheGambia_L2"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 758196
+        invar_C: 1449808
+        invar_G: 1444461
+        invar_T: 758075
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.35
+
+    bd_sampl1_TG_L4:
+      dataset: "TheGambia_L4"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 756096
+        invar_C: 1443247
+        invar_G: 1437847
+        invar_T: 755861
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.19
+
+    bd_sampl1_TG_L6:
+      dataset: "TheGambia_L6"
+      model: "BD"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 756308
+        invar_C: 1442914
+        invar_G: 1437460
+        invar_T: 756142
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.24
+
+  # Vietnam
+
+    bd_sampl1_VN_L1:
+      dataset: "Vietnam_L1"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 755505
+        invar_C: 1438820
+        invar_G: 1433269
+        invar_T: 755399
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.18
+
+    bd_sampl1_VN_L2:
+      dataset: "Vietnam_L2"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 754323
+        invar_C: 1440032
+        invar_G: 1434838
+        invar_T: 754147
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.068
+
+    bd_sampl1_VN_L4:
+      dataset: "Vietnam_L4"
+      model: "BD"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 756519
+        invar_C: 1444853
+        invar_G: 1439546
+        invar_T: 756448
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.18   
+
+
+  ## Sampling proportion = 1.5x estimate
+
+  bd_sampl15:
+
+  # Malawi
+
+    bd_sampl15_Ma_L1:
+      dataset: "Malawi_L1"
+      model: "BD"
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 3
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 757261
+        invar_C: 1446122
+        invar_G: 1440632
+        invar_T: 757157
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.15
+
+    bd_sampl15_Ma_L2:
+      dataset: "Malawi_L2"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 758235
+        invar_C: 1449899
+        invar_G: 1444508
+        invar_T: 758105
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.15
+
+    bd_sampl15_Ma_L3:
+      dataset: "Malawi_L3"
+      model: "BD"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 758019
+        invar_C: 1449015
+        invar_G: 1443614
+        invar_T: 757885
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.15
+
+    bd_sampl15_Ma_L4:
+      dataset: "Malawi_L4"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 755728
+        invar_C: 1442858
+        invar_G: 1437387
+        invar_T: 755482
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.052
+
+  # Tanzania
+
+    bd_sampl15_Ta_L1:
+      dataset: "Tanzania_L1"
+      model: "BD"
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 3
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 757193
+        invar_C: 1445620
+        invar_G: 1440304
+        invar_T: 757054
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.057
+
+    bd_sampl15_Ta_L2:
+      dataset: "Tanzania_L2"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 758241
+        invar_C: 1449843
+        invar_G: 1444499
+        invar_T: 758079
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.057
+
+    bd_sampl15_Ta_L3:
+      dataset: "Tanzania_L3"
+      model: "BD"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 757478
+        invar_C: 1447129
+        invar_G: 1441682
+        invar_T: 757287
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.054
+
+    bd_sampl15_Ta_L4:
+      dataset: "Tanzania_L4"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 756818
+        invar_C: 1446064
+        invar_G: 1440575
+        invar_T: 756702
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.057
+
+  # The Gambia
+
+    bd_sampl15_TG_L2:
+      dataset: "TheGambia_L2"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 758196
+        invar_C: 1449808
+        invar_G: 1444461
+        invar_T: 758075
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.53
+
+    bd_sampl15_TG_L4:
+      dataset: "TheGambia_L4"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 756096
+        invar_C: 1443247
+        invar_G: 1437847
+        invar_T: 755861
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.29
+
+    bd_sampl15_TG_L6:
+      dataset: "TheGambia_L6"
+      model: "BD"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 756308
+        invar_C: 1442914
+        invar_G: 1437460
+        invar_T: 756142
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.36
+
+  # Vietnam
+
+    bd_sampl15_VN_L1:
+      dataset: "Vietnam_L1"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 755505
+        invar_C: 1438820
+        invar_G: 1433269
+        invar_T: 755399
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.27
+
+    bd_sampl15_VN_L2:
+      dataset: "Vietnam_L2"
+      model: "BD"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 754323
+        invar_C: 1440032
+        invar_G: 1434838
+        invar_T: 754147
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.10
+
+    bd_sampl15_VN_L4:
+      dataset: "Vietnam_L4"
+      model: "BD"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bd.xml"
+      xml_params:
+        invar_A: 756519
+        invar_C: 1444853
+        invar_G: 1439546
+        invar_T: 756448
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.27
+
+
+  ### BDSKY
+
+  bdsky_2:
+
+  # Malawi
+
+    bdsky_2_Ma_L4:
+      dataset: "Malawi_L4"
+      model: "BDSKY"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdsky_2.xml"
+      xml_params:
+        invar_A: 755728
+        invar_C: 1442858
+        invar_G: 1437387
+        invar_T: 755482
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.035
+        treatment_start: 26
+        # TB Control Programme since 1984 (https://bmcinfectdis.biomedcentral.com/articles/10.1186/1471-2334-14-132)
+        # most recent sample: 2010
+
+  # Tanzania
+
+    bdsky_2_Ta_L3:
+      dataset: "Tanzania_L3"
+      model: "BDSKY"    
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdsky_2.xml"
+      xml_params:
+        invar_A: 757478
+        invar_C: 1447129
+        invar_G: 1441682
+        invar_T: 757287
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.036
+        treatment_start: 42
+        # Nationanl TB an Leprosy Programme since 1977 (https://iris.who.int/bitstream/handle/10665/326236/WH-1993-Jul-Aug-p16-18-eng.pdf?isAllowed=y&sequence=1)
+        # most recent sample: 2019
+
+  # The Gambia
+
+    bdsky_2_TG_L4:
+      dataset: "TheGambia_L4"
+      model: "BDSKY"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdsky_2.xml"
+      xml_params:
+        invar_A: 756096
+        invar_C: 1443247
+        invar_G: 1437847
+        invar_T: 755861
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.19
+        treatment_start: 29
+        # National Leprosy and TB Programme since 1985 (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2956295/pdf/AFHS1002-0165.pdf)
+        # most recent sample: 2014
+
+  # Vietnam
+
+    bdsky_2_VN_L2:
+      dataset: "Vietnam_L2"
+      model: "BDSKY"      
+      command: "beast" # or "java -jar resources/myjar.jar"
+      action: "overwrite"
+      time: 14400
+      mem_mb: 4096
+      threads: 10
+      burnin: 10
+      chains: 1
+      xml: "xml/bdsky_2.xml"
+      xml_params:
+        invar_A: 754323
+        invar_C: 1440032
+        invar_G: 1434838
+        invar_T: 754147
+        length: 3000
+        log_every: 1000
+        treelog_every: 1000
+        sampling_prop: 0.068
+        treatment_start: 25
+        # National TB Control Programme since 1986 (https://www.ingentaconnect.com/content/iuatld/ijtld/2005/00000009/00000002/art00007;jsessionid=245lvm3h0j695.x-ic-live-01#)
+        # most recent sample: 2011

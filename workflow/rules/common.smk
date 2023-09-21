@@ -102,20 +102,23 @@ def _is_subsampled(wildcards):
 def _get_analysis_param(wildcards, param):
     return config["analyses"][wildcards.method][wildcards.analysis].get(param)
 
-def  _get_dataset_param(param, wildcards):
-    if _is_structured(wildcards):
-        return config["datasets"][wildcards.dataset]["structure"][wildcards.prefix[0:-1]].get(param)
-    else:
-        return config["datasets"][wildcards.dataset].get(param)
+# def  _get_dataset_param(param, wildcards):
+#     if _is_structured(wildcards):
+#         return config["datasets"][wildcards.dataset]["structure"][wildcards.prefix[0:-1]].get(param)
+#     else:
+#         return config["datasets"][wildcards.dataset].get(param)
 
-def  _get_subsampling_param(param, wildcards):
-    if _is_structured(wildcards):
-        return config["datasets"][wildcards.dataset]["structure"][wildcards.prefix[0:-1]]["subsample"].get(param)
-    else:
-        return config["datasets"][wildcards.dataset]["subsample"].get(param)
+# def  _get_subsampling_param(param, wildcards):
+#     if _is_structured(wildcards):
+#         return config["datasets"][wildcards.dataset]["structure"][wildcards.prefix[0:-1]]["subsample"].get(param)
+#     else:
+#         return config["datasets"][wildcards.dataset]["subsample"].get(param)
 
-def _get_mrs(wildcards):
-    ids = pd.read_csv(_get_sequence_ids(wildcards), sep = '\t')
-    dates = ids['sample_id'].str.split("|", expand=True)[2]
-    return max(dates)
+# def _get_mrs(wildcards):
+#     ids = pd.read_csv(_get_sequence_ids(wildcards), sep = '\t')
+#     dates = ids['sample_id'].str.split("|", expand=True)[2]
+#     return max(dates)
+
+def _get_model_analysis(wildcards,analysis):
+     return config["analyses"][wildcards.method][analysis].get("model")
 

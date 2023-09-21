@@ -15,8 +15,8 @@ from snakemake.utils import validate, min_version
 
 min_version("7.11.0")
 
-# add config files
-configfile: "../config/config.yaml"
+# Add config files
+configfile: "config/config.yaml"
 
 if config.get("config_datasets") is not None:
     configfile: config["config_datasets"]
@@ -24,19 +24,19 @@ if config.get("config_datasets") is not None:
 if config.get("config_analyses") is not None:
     configfile: config["config_analyses"]
 
-# rules to run locally
-localrules: all #, clean
+# Rules to run locally
+localrules: all, clean
 
-# wildcards
+# Wildcards
 wildcard_constraints:
     dataset="[A-Za-z0-9_]+",
     method="[A-Za-z0-9_.]+",
     analysis="[A-Za-z0-9_.]+",
-    chain="[0-9]+",
-   # suffix="[0-9.]+",
+    chain="[0-9]+"
 
-# Final output files
-all_files = []
+# BEAST output files
+
+all_beast_files = []
 METHODS = config["run"].keys()
 for method in METHODS:
     ANALYSES = config["run"][method] #.keys()
@@ -46,12 +46,33 @@ for method in METHODS:
             #DATA_SEED = ["." + str(i) for i in range(0, config["datasets"][dataset].get("replicates", 0))] or ""
         FILE_TYPE = config["target_files"][method]
         files = expand("results/analyses/" + method + "/" + analysis + "/" + analysis + ".{filetype}",filetype = FILE_TYPE)
-        all_files += files
+        all_beast_files += files
+        
+# Figure output files
+
+def _get_first_analysis(method):
+    return list(config["analyses"][method].keys())[0]
+
+def _get_model_method(method,analysis):
+     return config["analyses"][method][analysis].get("model")
+
+bdmm_figures = expand("results/figures/bdmm/{method}/{output}.svg",
+        method = [M for M in config["run"].keys() if _get_model_method(M,_get_first_analysis(M)) == "BDMM"], 
+        output = ["Re","infperiod","latentperiod","infperiodtot","transm_rate"])
+bd_figures = expand("results/figures/bd/{method}/{output}.svg",
+        method = [M for M in config["run"].keys() if _get_model_method(M,_get_first_analysis(M)) == "BD"], 
+        output = ["Re","infperiod","transm_rate"])
+bdsky_figures = expand("results/figures/bdsky/{method}/{output}.svg",
+        method = [M for M in config["run"].keys() if _get_model_method(M,_get_first_analysis(M)) == "BDSKY"], 
+        output = ["transm_rate_2"])
 
 
 rule all:
     input:
-        all_files
+        all_beast_files,
+        bdmm_figures,
+        bd_figures,
+        bdsky_figures
     default_target: True
         
 
@@ -65,4 +86,4 @@ rule clean:
 include: "rules/common.smk"
 include: "rules/pre-processing.smk"
 include: "rules/phylodynamics.smk"
-#ruleorder: beast > combine_chains > combine_trees
+include: "rules/post-processing.smk"

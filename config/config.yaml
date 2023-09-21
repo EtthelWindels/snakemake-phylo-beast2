@@ -10,42 +10,32 @@
 # use snakemake templates
 
 run:
-  #beast: ["bdmm_sampl025_Ma_L1","bdmm_sampl025_Ma_L2","bdmm_sampl025_Ma_L2","bdmm_sampl025_Ma_L3","bdmm_sampl025_Ma_L4"]
-  bdmm_sampl025: ["bdmm_sampl025_Ma_L2"]
+  bdmm_sampl025: ["bdmm_sampl025_Ma_L1","bdmm_sampl025_Ma_L2","bdmm_sampl025_Ma_L3","bdmm_sampl025_Ma_L4","bdmm_sampl025_Ta_L1","bdmm_sampl025_Ta_L2","bdmm_sampl025_Ta_L3","bdmm_sampl025_Ta_L4","bdmm_sampl025_TG_L2","bdmm_sampl025_TG_L4","bdmm_sampl025_TG_L6","bdmm_sampl025_VN_L1","bdmm_sampl025_VN_L2","bdmm_sampl025_VN_L4"]
+  bdmm_sampl05: ["bdmm_sampl05_Ma_L1","bdmm_sampl05_Ma_L2","bdmm_sampl05_Ma_L3","bdmm_sampl05_Ma_L4","bdmm_sampl05_Ta_L1","bdmm_sampl05_Ta_L2","bdmm_sampl05_Ta_L3","bdmm_sampl05_Ta_L4","bdmm_sampl05_TG_L2","bdmm_sampl05_TG_L4","bdmm_sampl05_TG_L6","bdmm_sampl05_VN_L1","bdmm_sampl05_VN_L2","bdmm_sampl05_VN_L4"]
+  bdmm_sampl1: ["bdmm_sampl1_Ma_L1","bdmm_sampl1_Ma_L2","bdmm_sampl1_Ma_L3","bdmm_sampl1_Ma_L4","bdmm_sampl1_Ta_L1","bdmm_sampl1_Ta_L2","bdmm_sampl1_Ta_L3","bdmm_sampl1_Ta_L4","bdmm_sampl1_TG_L2","bdmm_sampl1_TG_L4","bdmm_sampl1_TG_L6","bdmm_sampl1_VN_L1","bdmm_sampl1_VN_L2","bdmm_sampl1_VN_L4"]
+  bdmm_sampl15: ["bdmm_sampl15_Ma_L1","bdmm_sampl15_Ma_L2","bdmm_sampl15_Ma_L3","bdmm_sampl15_Ma_L4","bdmm_sampl15_Ta_L1","bdmm_sampl15_Ta_L2","bdmm_sampl15_Ta_L3","bdmm_sampl15_Ta_L4","bdmm_sampl15_TG_L2","bdmm_sampl15_TG_L4","bdmm_sampl15_TG_L6","bdmm_sampl15_VN_L1","bdmm_sampl15_VN_L2","bdmm_sampl15_VN_L4"]
+  bd_sampl025: ["bd_sampl025_Ma_L1","bd_sampl025_Ma_L2","bd_sampl025_Ma_L3","bd_sampl025_Ma_L4","bd_sampl025_Ta_L1","bd_sampl025_Ta_L2","bd_sampl025_Ta_L3","bd_sampl025_Ta_L4","bd_sampl025_TG_L2","bd_sampl025_TG_L4","bd_sampl025_TG_L6","bd_sampl025_VN_L1","bd_sampl025_VN_L2","bd_sampl025_VN_L4"]
+  bd_sampl05: ["bd_sampl05_Ma_L1","bd_sampl05_Ma_L2","bd_sampl05_Ma_L3","bd_sampl05_Ma_L4","bd_sampl05_Ta_L1","bd_sampl05_Ta_L2","bd_sampl05_Ta_L3","bd_sampl05_Ta_L4","bd_sampl05_TG_L2","bd_sampl05_TG_L4","bd_sampl05_TG_L6","bd_sampl05_VN_L1","bd_sampl05_VN_L2","bd_sampl05_VN_L4"]
+  bd_sampl1: ["bd_sampl1_Ma_L1","bd_sampl1_Ma_L2","bd_sampl1_Ma_L3","bd_sampl1_Ma_L4","bd_sampl1_Ta_L1","bd_sampl1_Ta_L2","bd_sampl1_Ta_L3","bd_sampl1_Ta_L4","bd_sampl1_TG_L2","bd_sampl1_TG_L4","bd_sampl1_TG_L6","bd_sampl1_VN_L1","bd_sampl1_VN_L2","bd_sampl1_VN_L4"]
+  bd_sampl15: ["bd_sampl15_Ma_L1","bd_sampl15_Ma_L2","bd_sampl15_Ma_L3","bd_sampl15_Ma_L4","bd_sampl15_Ta_L1","bd_sampl15_Ta_L2","bd_sampl15_Ta_L3","bd_sampl15_Ta_L4","bd_sampl15_TG_L2","bd_sampl15_TG_L4","bd_sampl15_TG_L6","bd_sampl15_VN_L1","bd_sampl15_VN_L2","bd_sampl15_VN_L4"]
+  bdsky_2: ["bdsky_2_Ma_L4","bdsky_2_Ta_L3","bdsky_2_TG_L4","bdsky_2_VN_L2"]
 
-config_datasets: "../config/datasets.yaml"
-config_analyses: "../config/analyses.yaml"
-
-# output:
-#   plot_dataset: true
-#   plot_tree: true
-#   check_ESS: true
-#   plot_parameters:
-#     - Re
-#     - ReAmongDemes
-#     - clockRate
-# check ESS, if passed MCC tree and parameter plots (user defined parameters)
-  # add config file for plotting output
-  # check ess of chains already combined, user defined burnin or try different values automatically to maximize ess
-  # use ugne's feast class to random initialize the parameters
-
-#preprocessing:
-#  align: false
-#  mask: false
-#
-#lapis:
-#  seq_id: "strain" 
-#  database: "open" # gisaid or open
-#
-#align:
-#  parameters:
-#
-#mask:
-#  mask_from_beginning: 100
-#  mask_from_end: 200
-#  mask_sites: [21846, 21987, 22992, 23012, 23063, 23604, 24410]
+config_datasets: "config/datasets.yaml"
+config_analyses: "config/analyses.yaml"
 
 target_files:
-  #iqtree: ["treefile", "png"]
   bdmm_sampl025: ["log", "trees"]
+  bdmm_sampl05: ["log", "trees"]
+  bdmm_sampl1: ["log", "trees"]
+  bdmm_sampl15: ["log", "trees"]
+
+  bd_sampl025: ["log", "trees"]
+  bd_sampl05: ["log", "trees"]
+  bd_sampl1: ["log", "trees"]
+  bd_sampl15: ["log", "trees"]
+
+  bdsky_2: ["log", "trees"]
+
+
+
 

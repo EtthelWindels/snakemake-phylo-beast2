@@ -20,8 +20,8 @@ rule beast:
     threads:
         lambda wildcards: _get_analysis_param(wildcards, "threads"),
     resources:
-        runtime = lambda wildcards: _get_analysis_param(wildcards, "time"),
-        mem_mb = lambda wildcards: _get_analysis_param(wildcards, "mem_mb")
+       runtime = lambda wildcards: _get_analysis_param(wildcards, "time"),
+       mem_mb = lambda wildcards: _get_analysis_param(wildcards, "mem_mb")
     shell:
         """
         mkdir -p {params.folder_name}/temp
@@ -39,7 +39,6 @@ rule beast:
 
         """
         # (temporary log file created to enable "resume" without deleting file)
-        # [ -f ]: returns true if file is a regular file (not a directory or device file)
 
 
 def _get_chains(wildcards):
@@ -47,7 +46,6 @@ def _get_chains(wildcards):
         "results/analyses/{{method}}/{{analysis}}/chains/{{analysis}}.{chain}.log",
         chain = range(1, _get_analysis_param(wildcards, "chains") + 1))
     return files
-# double braces are read as one brace
 
 
 rule combine_chains:
@@ -70,16 +68,13 @@ rule combine_chains:
         """
         logcombiner -log {params.input_command} -o {output.combined_chain} -b {params.burnin}  2>&1 | tee -a {log} 
         """
-        # 2>&1 is a Shell operator that is used in the command line to redirect stderr (file descriptor 2 ) to stdout (file descriptor 1 )
-        # tee command is used to display the standard output (stdout) of a program and write it in a file (-a: append)
+
 
 def _get_trees(wildcards):
     files = expand(
         "results/analyses/{{method}}/{{analysis}}/chains/{{analysis}}.{chain}.trees",
         chain = range(1, _get_analysis_param(wildcards, "chains") + 1))
     return files
-# double braces are read as one brace
-
 
 
 rule combine_trees:
