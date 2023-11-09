@@ -7,7 +7,6 @@
 
 # Load libraries ----------------------------------------------------------
 
-library(argparse)
 library(ggplot2)
 library(dplyr)
 library(stringr)
@@ -148,5 +147,5 @@ lambda_VN_2 <- ggplot(all_lin_2[all_lin_2$country=="Vietnam",], aes(epoch, y=lam
 
 lambda_2 <- plot_grid(lambda_Ma_2, lambda_Ta_2, lambda_TG_2, lambda_VN_2, ncol=4) 
 
-ggsave("transm_rate_2.svg", plot=lambda_2, path=dirname(snakemake@output[["transm_rate_2"]]), width=408, height=144, units="mm")
+ggsave("transm_rate_2.png", plot=lambda_2, path=dirname(snakemake@output[["transm_rate_2"]]), width=408, height=144, units="mm")
 

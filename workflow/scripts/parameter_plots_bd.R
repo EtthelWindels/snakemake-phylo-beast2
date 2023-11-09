@@ -374,6 +374,6 @@ infperiod <- plot_grid(infperiod_Ma, infperiod_Ta, infperiod_TG, infperiod_VN, n
 lambda <- plot_grid(lambda_Ma, lambda_Ta, lambda_TG, lambda_VN, ncol=4) 
 
 
-ggsave("Re.svg", plot=Re, path=dirname(snakemake@output[["Re"]]), width=408, height=144, units="mm")
-ggsave("infperiod.svg", plot=infperiod, path=dirname(snakemake@output[["infperiod"]]), width=408, height=144, units="mm")
-ggsave("transm_rate.svg", plot=lambda, path=dirname(snakemake@output[["transm_rate"]]), width=408, height=144, units="mm")
+ggsave("Re.png", plot=Re, path=dirname(snakemake@output[["Re"]]), width=408, height=144, units="mm")
+ggsave("infperiod.png", plot=infperiod, path=dirname(snakemake@output[["infperiod"]]), width=408, height=144, units="mm")
+ggsave("transm_rate.png", plot=lambda, path=dirname(snakemake@output[["transm_rate"]]), width=408, height=144, units="mm")
