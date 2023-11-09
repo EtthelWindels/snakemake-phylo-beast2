@@ -122,76 +122,82 @@
 			<parameter id="samplingProportion" spec="parameter.RealParameter" dimension="4" lower="0.0" upper="1.0" name="samplingProportion" value="0.0 0.0 0.0 $(sampling_prop)"></parameter>
 
             </distribution>
-            
  
             <prior spec='beast.math.distributions.ExcludablePrior' id="R0AmongPrior" name="distribution" x="@R0AmongDemes" xInclude="false true">
                 <LogNormal id="LogNormalDistributionModel.0" name="distr">
-                    <parameter id="RealParameter.16" spec="parameter.RealParameter" estimate="false" name="M">0.0</parameter>
-                    <parameter id="RealParameter.17" spec="parameter.RealParameter" estimate="false" name="S" lower="0.0" upper="5.0">1.0</parameter>
+                    <parameter id="RealParameter.1" spec="parameter.RealParameter" estimate="false" name="M">0.0</parameter>
+                    <parameter id="RealParameter.2" spec="parameter.RealParameter" estimate="false" name="S">1.0</parameter>
                 </LogNormal>
             </prior>
            
             <prior spec='beast.math.distributions.ExcludablePrior' id="becomeUninfectiousRatePrior_infectious" name="distribution" x="@becomeUninfectiousRate" xInclude="false true">
-                <LogNormal id="LogNormalDistributionModel.2" name="distr">
-                    <parameter id="RealParameter.30" spec="parameter.RealParameter" estimate="false" name="M">0.0</parameter>
-                    <parameter id="RealParameter.31" spec="parameter.RealParameter" estimate="false" lower="0.0" name="S" upper="5.0">0.2</parameter>
+                <LogNormal id="LogNormalDistributionModel.1" name="distr">
+                    <parameter id="RealParameter.3" spec="parameter.RealParameter" estimate="false" name="M">0.0</parameter>
+                    <parameter id="RealParameter.4" spec="parameter.RealParameter" estimate="false" name="S">1.0</parameter>
                 </LogNormal>
+            </prior>
+            
+            <prior spec='beast.math.distributions.ExcludablePrior' id="rateMatrixPrior" name="distribution" x="@rateMatrix" xInclude="true false">
+              <LogNormal id="LogNormalDistributionModel.2" name="distr" meanInRealSpace="false">
+                    <parameter id="RealParameter.5" spec="parameter.RealParameter" estimate="false" name="M">0.0</parameter>
+                    <parameter id="RealParameter.6" spec="parameter.RealParameter" estimate="false" name="S">1.0</parameter>
+                </LogNormal>  
             </prior>        
         	
         	<prior spec='beast.math.distributions.ExcludablePrior' id="removalProbabilityPrior" name="distribution" x="@removalProbability" xInclude="false true">
-            	<Uniform id="Uniform.3" name="distr" lower="0" upper="1"/>
+            	<Uniform id="Uniform.1" name="distr" lower="0" upper="1"/>
             </prior>   
                         
             <prior id="ClockPrior" name="distribution" x="@clockRate">
-           		<LogNormal id="LogNormalDistributionModel.4" name="distr" meanInRealSpace="false">
-                    <parameter id="RealParameter.28" spec="parameter.RealParameter" estimate="false" name="M">-16</parameter>
-                    <parameter id="RealParameter.29" spec="parameter.RealParameter" estimate="false" name="S">1.0</parameter>
+           		<LogNormal id="LogNormalDistributionModel.3" name="distr" meanInRealSpace="false">
+                    <parameter id="RealParameter.7" spec="parameter.RealParameter" estimate="false" name="M">-16</parameter>
+                    <parameter id="RealParameter.8" spec="parameter.RealParameter" estimate="false" name="S">1.0</parameter>
                 </LogNormal>        
             </prior>
                         
             <prior id="GammaShapePrior" name="distribution" x="@gammaShape">
-                <Exponential id="Exponential.2" name="distr">
-                    <parameter id="RealParameter.2" spec="parameter.RealParameter" estimate="false" name="mean">1.0</parameter>
+                <Exponential id="Exponential.1" name="distr">
+                    <parameter id="RealParameter.9" spec="parameter.RealParameter" estimate="false" name="mean">1.0</parameter>
                 </Exponential>
             </prior>
                                     
             <prior id="RateACPrior" name="distribution" x="@rateAC">
-                <Gamma id="Gamma.0" name="distr">
-                    <parameter id="RealParameter.4" spec="parameter.RealParameter" estimate="false" name="alpha">0.05</parameter>
-                    <parameter id="RealParameter.5" spec="parameter.RealParameter" estimate="false" name="beta">10.0</parameter>
-                </Gamma>
-            </prior>
-            
-            <prior id="RateAGPrior" name="distribution" x="@rateAG">
                 <Gamma id="Gamma.1" name="distr">
-                    <parameter id="RealParameter.6" spec="parameter.RealParameter" estimate="false" name="alpha">0.05</parameter>
-                    <parameter id="RealParameter.7" spec="parameter.RealParameter" estimate="false" name="beta">20.0</parameter>
-                </Gamma>
-            </prior>
-            
-            <prior id="RateATPrior" name="distribution" x="@rateAT">
-                <Gamma id="Gamma.2" name="distr">
-                    <parameter id="RealParameter.8" spec="parameter.RealParameter" estimate="false" name="alpha">0.05</parameter>
-                    <parameter id="RealParameter.9" spec="parameter.RealParameter" estimate="false" name="beta">10.0</parameter>
-                </Gamma>
-            </prior>
-            
-            <prior id="RateCGPrior" name="distribution" x="@rateCG">
-                <Gamma id="Gamma.3" name="distr">
                     <parameter id="RealParameter.10" spec="parameter.RealParameter" estimate="false" name="alpha">0.05</parameter>
                     <parameter id="RealParameter.11" spec="parameter.RealParameter" estimate="false" name="beta">10.0</parameter>
                 </Gamma>
             </prior>
             
+            <prior id="RateAGPrior" name="distribution" x="@rateAG">
+                <Gamma id="Gamma.2" name="distr">
+                    <parameter id="RealParameter.12" spec="parameter.RealParameter" estimate="false" name="alpha">0.05</parameter>
+                    <parameter id="RealParameter.13" spec="parameter.RealParameter" estimate="false" name="beta">20.0</parameter>
+                </Gamma>
+            </prior>
+            
+            <prior id="RateATPrior" name="distribution" x="@rateAT">
+                <Gamma id="Gamma.3" name="distr">
+                    <parameter id="RealParameter.14" spec="parameter.RealParameter" estimate="false" name="alpha">0.05</parameter>
+                    <parameter id="RealParameter.15" spec="parameter.RealParameter" estimate="false" name="beta">10.0</parameter>
+                </Gamma>
+            </prior>
+            
+            <prior id="RateCGPrior" name="distribution" x="@rateCG">
+                <Gamma id="Gamma.4" name="distr">
+                    <parameter id="RealParameter.16" spec="parameter.RealParameter" estimate="false" name="alpha">0.05</parameter>
+                    <parameter id="RealParameter.17" spec="parameter.RealParameter" estimate="false" name="beta">10.0</parameter>
+                </Gamma>
+            </prior>
+            
             <prior id="RateGTPrior" name="distribution" x="@rateGT">
                 <Gamma id="Gamma.5" name="distr">
-                    <parameter id="RealParameter.12" spec="parameter.RealParameter" estimate="false" name="alpha">0.05</parameter>
-                    <parameter id="RealParameter.13" spec="parameter.RealParameter" estimate="false" name="beta">10.0</parameter>
+                    <parameter id="RealParameter.18" spec="parameter.RealParameter" estimate="false" name="alpha">0.05</parameter>
+                    <parameter id="RealParameter.19" spec="parameter.RealParameter" estimate="false" name="beta">10.0</parameter>
                 </Gamma>
             </prior>
             
             <prior id="OriginPrior" name="distribution" x="@origin">
-                <Uniform id="Uniform.0" name="distr" lower="0" upper="1000"/>
+                <Uniform id="Uniform.2" name="distr" lower="0" upper="1000"/>
             </prior> 
             
 

@@ -118,8 +118,12 @@
             <prior id="deathRatePrior" name="distribution" x="@deathRate">
                 <LogNormal id="LogNormalDistributionModel.1" name="distr">
                     <parameter id="RealParameter.3" spec="parameter.RealParameter" estimate="false" name="M">0.0</parameter>
-                    <parameter id="RealParameter.4" spec="parameter.RealParameter" estimate="false" lower="0.0" name="S" upper="5.0">0.5</parameter>
+                    <parameter id="RealParameter.4" spec="parameter.RealParameter" estimate="false" lower="0.0" name="S" upper="5.0">1.0</parameter>
                 </LogNormal>
+            </prior>  
+            
+            <prior id="removalProbabilityPrior" name="distribution" x="@removalProbability">
+            	<Uniform id="Uniform.1" name="distr" lower="0" upper="1"/>
             </prior>  
             
             <prior id="ClockPrior" name="distribution" x="@clockRate">
