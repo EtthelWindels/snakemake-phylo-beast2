@@ -12,11 +12,11 @@ rule plot_bdmm:
     input:
         input_logs = _get_all_bdmm_logs
     output:
-        Re = "results/figures/bdmm/{method}/Re.svg",
-        infperiod = "results/figures/bdmm/{method}/infperiod.svg",
-        latentperiod = "results/figures/bdmm/{method}/latentperiod.svg",
-        infperiodtot = "results/figures/bdmm/{method}/infperiodtot.svg",
-        transm_rate = "results/figures/bdmm/{method}/transm_rate.svg"
+        Re = "results/figures/bdmm/{method}/Re.png",
+        infperiod = "results/figures/bdmm/{method}/infperiod.png",
+        latentperiod = "results/figures/bdmm/{method}/latentperiod.png",
+        infperiodtot = "results/figures/bdmm/{method}/infperiodtot.png",
+        transm_rate = "results/figures/bdmm/{method}/transm_rate.png"
     script:
         "../scripts/parameter_plots_bdmm.R"
 
@@ -33,9 +33,9 @@ rule plot_bd:
     input:
         input_logs = _get_all_bd_logs
     output:
-        Re = "results/figures/bd/{method}/Re.svg",
-        infperiod = "results/figures/bd/{method}/infperiod.svg",
-        transm_rate = "results/figures/bd/{method}/transm_rate.svg"
+        Re = "results/figures/bd/{method}/Re.png",
+        infperiod = "results/figures/bd/{method}/infperiod.png",
+        transm_rate = "results/figures/bd/{method}/transm_rate.png"
     script:
         "../scripts/parameter_plots_bd.R"        
         
@@ -52,6 +52,6 @@ rule plot_bdsky:
     input:
         input_logs = _get_all_bdsky_logs
     output:
-        transm_rate_2 = "results/figures/bdsky/{method}/transm_rate_2.svg",
+        transm_rate_2 = "results/figures/bdsky/{method}/transm_rate_2.png",
     script:
         "../scripts/parameter_plots_bdsky.R"      

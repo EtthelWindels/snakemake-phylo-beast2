@@ -22,6 +22,8 @@ rule alignment_names:
         alignment_out = "data/alignments/{dataset}/{dataset}_newid.fasta"
     log:
         "logs/{dataset}/{dataset}_newid.txt"
+    resources:
+        mem_per_cpu = 4096
     script:
         "../scripts/adjust_alignment_names.R"     
 
@@ -34,6 +36,8 @@ rule subsample:
         alignment_in = "data/alignments/{dataset}/{dataset}_newid.fasta"
     output:
         alignment_out = "data/alignments/{dataset}/{dataset}_beast.fasta"
+    resources:
+        mem_per_cpu = 4096
     script:
         "../scripts/subsample.R"
 
