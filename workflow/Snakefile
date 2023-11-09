@@ -8,9 +8,9 @@
 # -----------------------------------------------------------------------------------
 
 
-import urllib, json
-import pandas as pd
-import numpy as np
+#import urllib, json
+#import pandas as pd
+#import numpy as np
 from snakemake.utils import validate, min_version
 
 min_version("7.11.0")
@@ -32,7 +32,8 @@ wildcard_constraints:
     dataset="[A-Za-z0-9_]+",
     method="[A-Za-z0-9_.]+",
     analysis="[A-Za-z0-9_.]+",
-    chain="[0-9]+"
+    chain="[0-9]",
+    i="[0-9]"
 
 # BEAST output files
 
@@ -56,13 +57,13 @@ def _get_first_analysis(method):
 def _get_model_method(method,analysis):
      return config["analyses"][method][analysis].get("model")
 
-bdmm_figures = expand("results/figures/bdmm/{method}/{output}.svg",
+bdmm_figures = expand("results/figures/bdmm/{method}/{output}.png",
         method = [M for M in config["run"].keys() if _get_model_method(M,_get_first_analysis(M)) == "BDMM"], 
         output = ["Re","infperiod","latentperiod","infperiodtot","transm_rate"])
-bd_figures = expand("results/figures/bd/{method}/{output}.svg",
+bd_figures = expand("results/figures/bd/{method}/{output}.png",
         method = [M for M in config["run"].keys() if _get_model_method(M,_get_first_analysis(M)) == "BD"], 
         output = ["Re","infperiod","transm_rate"])
-bdsky_figures = expand("results/figures/bdsky/{method}/{output}.svg",
+bdsky_figures = expand("results/figures/bdsky/{method}/{output}.png",
         method = [M for M in config["run"].keys() if _get_model_method(M,_get_first_analysis(M)) == "BDSKY"], 
         output = ["transm_rate_2"])
 
@@ -87,3 +88,7 @@ include: "rules/common.smk"
 include: "rules/pre-processing.smk"
 include: "rules/phylodynamics.smk"
 include: "rules/post-processing.smk"
+
+#ruleorder: beast > aggregate_runs 
+ruleorder: beast > combine_chains 
+#ruleorder: aggregate_runs > combine_chains 

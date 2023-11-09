@@ -13,28 +13,27 @@ run:
   bdmm_sampl025: ["bdmm_sampl025_Ma_L1","bdmm_sampl025_Ma_L2","bdmm_sampl025_Ma_L3","bdmm_sampl025_Ma_L4","bdmm_sampl025_Ta_L1","bdmm_sampl025_Ta_L2","bdmm_sampl025_Ta_L3","bdmm_sampl025_Ta_L4","bdmm_sampl025_TG_L2","bdmm_sampl025_TG_L4","bdmm_sampl025_TG_L6","bdmm_sampl025_VN_L1","bdmm_sampl025_VN_L2","bdmm_sampl025_VN_L4"]
   bdmm_sampl05: ["bdmm_sampl05_Ma_L1","bdmm_sampl05_Ma_L2","bdmm_sampl05_Ma_L3","bdmm_sampl05_Ma_L4","bdmm_sampl05_Ta_L1","bdmm_sampl05_Ta_L2","bdmm_sampl05_Ta_L3","bdmm_sampl05_Ta_L4","bdmm_sampl05_TG_L2","bdmm_sampl05_TG_L4","bdmm_sampl05_TG_L6","bdmm_sampl05_VN_L1","bdmm_sampl05_VN_L2","bdmm_sampl05_VN_L4"]
   bdmm_sampl1: ["bdmm_sampl1_Ma_L1","bdmm_sampl1_Ma_L2","bdmm_sampl1_Ma_L3","bdmm_sampl1_Ma_L4","bdmm_sampl1_Ta_L1","bdmm_sampl1_Ta_L2","bdmm_sampl1_Ta_L3","bdmm_sampl1_Ta_L4","bdmm_sampl1_TG_L2","bdmm_sampl1_TG_L4","bdmm_sampl1_TG_L6","bdmm_sampl1_VN_L1","bdmm_sampl1_VN_L2","bdmm_sampl1_VN_L4"]
-  bdmm_sampl15: ["bdmm_sampl15_Ma_L1","bdmm_sampl15_Ma_L2","bdmm_sampl15_Ma_L3","bdmm_sampl15_Ma_L4","bdmm_sampl15_Ta_L1","bdmm_sampl15_Ta_L2","bdmm_sampl15_Ta_L3","bdmm_sampl15_Ta_L4","bdmm_sampl15_TG_L2","bdmm_sampl15_TG_L4","bdmm_sampl15_TG_L6","bdmm_sampl15_VN_L1","bdmm_sampl15_VN_L2","bdmm_sampl15_VN_L4"]
   bd_sampl025: ["bd_sampl025_Ma_L1","bd_sampl025_Ma_L2","bd_sampl025_Ma_L3","bd_sampl025_Ma_L4","bd_sampl025_Ta_L1","bd_sampl025_Ta_L2","bd_sampl025_Ta_L3","bd_sampl025_Ta_L4","bd_sampl025_TG_L2","bd_sampl025_TG_L4","bd_sampl025_TG_L6","bd_sampl025_VN_L1","bd_sampl025_VN_L2","bd_sampl025_VN_L4"]
   bd_sampl05: ["bd_sampl05_Ma_L1","bd_sampl05_Ma_L2","bd_sampl05_Ma_L3","bd_sampl05_Ma_L4","bd_sampl05_Ta_L1","bd_sampl05_Ta_L2","bd_sampl05_Ta_L3","bd_sampl05_Ta_L4","bd_sampl05_TG_L2","bd_sampl05_TG_L4","bd_sampl05_TG_L6","bd_sampl05_VN_L1","bd_sampl05_VN_L2","bd_sampl05_VN_L4"]
   bd_sampl1: ["bd_sampl1_Ma_L1","bd_sampl1_Ma_L2","bd_sampl1_Ma_L3","bd_sampl1_Ma_L4","bd_sampl1_Ta_L1","bd_sampl1_Ta_L2","bd_sampl1_Ta_L3","bd_sampl1_Ta_L4","bd_sampl1_TG_L2","bd_sampl1_TG_L4","bd_sampl1_TG_L6","bd_sampl1_VN_L1","bd_sampl1_VN_L2","bd_sampl1_VN_L4"]
-  bd_sampl15: ["bd_sampl15_Ma_L1","bd_sampl15_Ma_L2","bd_sampl15_Ma_L3","bd_sampl15_Ma_L4","bd_sampl15_Ta_L1","bd_sampl15_Ta_L2","bd_sampl15_Ta_L3","bd_sampl15_Ta_L4","bd_sampl15_TG_L2","bd_sampl15_TG_L4","bd_sampl15_TG_L6","bd_sampl15_VN_L1","bd_sampl15_VN_L2","bd_sampl15_VN_L4"]
   bdsky_2: ["bdsky_2_Ma_L4","bdsky_2_Ta_L3","bdsky_2_TG_L4","bdsky_2_VN_L2"]
+
 
 config_datasets: "config/datasets.yaml"
 config_analyses: "config/analyses.yaml"
 
 target_files:
-  bdmm_sampl025: ["log", "trees"]
-  bdmm_sampl05: ["log", "trees"]
-  bdmm_sampl1: ["log", "trees"]
-  bdmm_sampl15: ["log", "trees"]
+  bdmm_sampl025: ["log","trees"]
+  bdmm_sampl05: ["log","trees"]
+  bdmm_sampl1: ["log","trees"]
+  bdmm_sampl15: ["log","trees"]
 
-  bd_sampl025: ["log", "trees"]
-  bd_sampl05: ["log", "trees"]
-  bd_sampl1: ["log", "trees"]
-  bd_sampl15: ["log", "trees"]
+  bd_sampl025: ["log","trees"]
+  bd_sampl05: ["log","trees"]
+  bd_sampl1: ["log","trees"]
+  bd_sampl15: ["log","trees"]
 
-  bdsky_2: ["log", "trees"]
+  bdsky_2: ["log","trees"]
 
 
 
