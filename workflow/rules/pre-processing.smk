@@ -43,12 +43,4 @@ rule subsample:
 
 
 # TO DO: only apply this rule to alignments to be subsampled (avoid unnecessary reading and writing of fasta files)
-# e.g. 
-# rule subsample:
-#     input:
-#         alignment_in = _is_subsampled
-#         meta_all = "data/metadata/allcountries_metadata.txt",
-#     output:
-#         alignment_out = "data/alignments/{dataset}/{dataset}_beast.fasta"
-# or subsample based on separate ID file
 
